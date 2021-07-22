@@ -135,7 +135,7 @@ googlesheets4::sheet_write(
 tar_make()
 ```
 
-```{r visnetwork}
+```{r target-visnetwork}
 tar_visnetwork()
 ```
 
