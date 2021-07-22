@@ -114,7 +114,8 @@ library(scales)
 ```
 
 ``` r
-tar_read(budget) %>% skimr::skim()
+tar_read(budget) %>% 
+  skimr::skim()
 ```
 
 <table style="width: auto;" class="table table-condensed">
@@ -836,7 +837,8 @@ amount
 </table>
 
 ``` r
-tar_read(unique_thai_sentences) %>% head()
+tar_read(unique_thai_sentences) %>% 
+  head()
 #> [1] "งบกลาง"                  "สำนักนายกรัฐมนตรี"         
 #> [3] "กระทรวงกลาโหม"           "กระทรวงการคลัง"          
 #> [5] "กระทรวงการต่างประเทศ"     "กระทรวงการท่องเที่ยวและกีฬา"
@@ -924,18 +926,14 @@ tar_read(budget_en) %>%
   group_by(ministry_en) %>%
   summarise(amount = sum(amount, na.rm = TRUE)) %>%
   ggplot(data = ., aes(
-    x = amount, 
-    y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 40), amount))
-  ) +
+    x = amount,
+    y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 40), amount)
+  )) +
   geom_col() +
-  scale_x_continuous(labels = scales::dollar) +
-  scale_y_discrete(expand=c(0, 0.5)) +
+  scale_x_continuous(labels = label_dollar(prefix = "")) +
+  scale_y_discrete(expand = c(0, 0.5)) +
   theme_bw(base_size = 20) +
   labs(x = "Amount in Thai Bahts", y = "Ministry")
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
-
-``` r
-  # theme(axis.tick.x = unit(6, "inches"))
-```
