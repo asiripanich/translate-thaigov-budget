@@ -1,0 +1,122 @@
+---
+title: "ThaiGov's 2022 Budget"
+output: github_document
+always_allow_html: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+Sys.setlocale(locale = "Thai")
+library(targets)
+library(showtext)
+showtext_auto()
+```
+
+<blockquote class="twitter-tweet"><p lang="th" dir="ltr">[ Excel <a href="https://twitter.com/hashtag/%E0%B8%87%E0%B8%9A65?src=hash&amp;ref_src=twsrc%5Etfw">#งบ65</a> สำเร็จแล้ว! ใช้ไปเลยชั่วลูกชั่วหลาน ]<br><br>ดาวน์โหลด: <a href="https://t.co/PuhflF8DEF">https://t.co/PuhflF8DEF</a><br><br>เราจะทำตามสัญญา ขอเวลาอีกไม่นาน ...<br><br>หลัง งปม. วาระ 1 ผ่านสภา พวกเราเคยให้สัญญากับทุกท่านไว้ว่า จะรวมพลังสาย dev เพื่อแปลงงบ pdf สู่ machine-readable แบบทำครั้งเดียว ใช้ได้ชั่วลูกชั่วหลาน <a href="https://t.co/b0pWMF3jDc">pic.twitter.com/b0pWMF3jDc</a></p>&mdash; ณัฐพงษ์ เรืองปัญญาวุฒิ (เท้ง) (@teng_mfp) <a href="https://twitter.com/teng_mfp/status/1417872910383865859?ref_src=twsrc%5Etfw">July 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+
+```{targets, tar_globals = TRUE}
+options(tidyverse.quiet = TRUE)
+tar_option_set(packages = c("dplyr", "ggplot2", "readr", "tidyr", "skimr", "magrittr", "googleLanguageR"))
+```
+
+# Targets
+
+```{targets budget-raw}
+tar_target(budget_raw, readr::read_csv(here::here("data", "65_thailand_budget_extracted_b4_cleansing.csv")))
+```
+
+```{targets จัดการข้อมูล}
+list(
+  tar_target(budget, budget_raw %>% janitor::clean_names()),
+  tar_target(unique_thai_sentences, {
+    budget %>%
+      select(
+        ministry,
+        budgetary_unit,
+        budget_plan,
+        output,
+        project,
+        starts_with("category"),
+        item_description
+      ) %>% {
+        as.character(unique(unlist(.)))
+      }
+  }),
+  tar_target(sampled_sentences,
+             sample(unique_thai_sentences, 5))
+)
+```
+
+```{targets translation}
+list(
+  tar_target(translated_sentences, {
+    gl_translate(sampled_sentences, target = "en")
+  }),
+  tar_target(translated_ministry, {
+    budget$ministry %>% 
+      unique() %>%
+      gl_translate(target = "en")
+  })
+)
+```
+
+```{targets budget_en, tar_simple = TRUE}
+translated_ministry %>%
+  mutate(translatedText = tools::toTitleCase(translatedText)) %>%
+  merge(budget, ., by.x = "ministry", by.y = "text") %>%
+  select(-detectedSourceLanguage) %>%
+  rename(ministry_en = "translatedText")
+```
+
+
+# Pipeline
+
+```{r}
+tar_make()
+```
+
+```{r}
+tar_visnetwork()
+```
+
+# Output
+
+```{r, message=FALSE}
+library(dplyr)
+library(skimr)
+library(ggplot2)
+library(kableExtra)
+library(stringr)
+library(forcats)
+library(scales)
+```
+
+```{r}
+tar_read(budget) %>% skimr::skim()
+```
+
+```{r}
+tar_read(unique_thai_sentences) %>% head()
+```
+
+```{r}
+tar_read(translated_sentences) %>% 
+  dplyr::select(-detectedSourceLanguage) %>%
+  kableExtra::kbl()
+```
+
+```{r fig.height=8, dpi=300}
+tar_read(budget_en) %>%
+  group_by(ministry_en) %>%
+  summarise(amount = sum(amount, na.rm = TRUE)) %>%
+  ggplot(data = ., aes(
+    x = amount, 
+    y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 40), amount))
+  ) +
+  geom_col() +
+  scale_x_continuous(labels = scales::dollar) +
+  scale_y_discrete(expand=c(0, 0.5)) +
+  theme_bw(base_size = 20) +
+  labs(x = "Amount in Thai Bahts", y = "Ministry")
+```
+
