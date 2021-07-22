@@ -18,9 +18,16 @@ tar_unscript()
 
 <blockquote class="twitter-tweet"><p lang="th" dir="ltr">[ Excel <a href="https://twitter.com/hashtag/%E0%B8%87%E0%B8%9A65?src=hash&amp;ref_src=twsrc%5Etfw">#งบ65</a> สำเร็จแล้ว! ใช้ไปเลยชั่วลูกชั่วหลาน ]<br><br>ดาวน์โหลด: <a href="https://t.co/PuhflF8DEF">https://t.co/PuhflF8DEF</a><br><br>เราจะทำตามสัญญา ขอเวลาอีกไม่นาน ...<br><br>หลัง งปม. วาระ 1 ผ่านสภา พวกเราเคยให้สัญญากับทุกท่านไว้ว่า จะรวมพลังสาย dev เพื่อแปลงงบ pdf สู่ machine-readable แบบทำครั้งเดียว ใช้ได้ชั่วลูกชั่วหลาน <a href="https://t.co/b0pWMF3jDc">pic.twitter.com/b0pWMF3jDc</a></p>&mdash; ณัฐพงษ์ เรืองปัญญาวุฒิ (เท้ง) (@teng_mfp) <a href="https://twitter.com/teng_mfp/status/1417872910383865859?ref_src=twsrc%5Etfw">July 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 
+
+This repository contains R code that uses [Google Translation API](https://cloud.google.com/translate) to translate [2022 Thai Government Budget data](https://github.com/kaogeek/thailand-budget-pdf2csv) from Thai to English. A *partially* translated version of the data can be viewed and downloaded from here: 
+
+> https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing
+
+So far I have only translated `ministry`, `budgetary_unit`, `budget_plan`, `output`, and `category_lv1` columns using my free Google monthly quota. If you are interested to contribute, please submit a pull request with other columns translated to English. Feel free to use the R code below. :)
+
 ```{targets, tar_globals = TRUE}
 options(tidyverse.quiet = TRUE)
-tar_option_set(packages = c("dplyr", "ggplot2", "googlesheets4", "tidyr", "skimr", "magrittr", "googleLanguageR"))
+tar_option_set(packages = c("dplyr", "ggplot2", "googlesheets4", "tidyr", "skimr", "magrittr", "googleLanguageR", "data.table"))
 merge_translation <- function(x, translation, column) {
   translation %>%
     merge(x, ., by.x = column, by.y = "text") %>%
@@ -51,23 +58,18 @@ list(
       ) %>% {
         as.character(unique(unlist(.)))
       }
-  }),
-  tar_target(sampled_sentences,
-             sample(unique_sentences, 5))
+  })
 )
 ```
 
-```{targets chunks_of_unique_sentences, tar_simple = TRUE}
-unique_sentences %>%
-  sample(size = 20, replace = FALSE) %>%
-  split(., ceiling(seq_along(.) / 5))
-```
+<!-- ```{targets chunks_of_unique_sentences, tar_simple = TRUE} -->
+<!-- unique_sentences %>% -->
+<!--   sample(size = 20, replace = FALSE) %>% -->
+<!--   split(., ceiling(seq_along(.) / 5)) -->
+<!-- ``` -->
 
 ```{targets translation}
 list(
-  tar_target(translated_sentences, {
-    gl_translate(sampled_sentences, target = "en")
-  }),
   tar_target(translated_ministry, {
     budget$ministry %>%
       unique() %>%
@@ -87,27 +89,44 @@ list(
     budget$output %>%
       unique() %>%
       gl_translate(target = "en")
+  }),
+  tar_target(translated_category_lv1, {
+    budget$category_lv1 %>%
+      unique() %>%
+      gl_translate(target = "en")
   })
 )
 ```
 
-```{targets translate-by-chunk} 
-list(
-  tar_target(
-    translated_chucks, 
-    gl_translate(chunks_of_unique_sentences[[1]], target = "en"), 
-    pattern = map(chunks_of_unique_sentences), 
-    iteration = "list"
-  )
-)
-```
+<!-- ```{targets translate-by-chunk}  -->
+<!-- list( -->
+<!--   tar_target( -->
+<!--     translated_chucks,  -->
+<!--     gl_translate(chunks_of_unique_sentences[[1]], target = "en"),  -->
+<!--     pattern = map(chunks_of_unique_sentences),  -->
+<!--     iteration = "list" -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
 ```{targets translated_budget, tar_simple = TRUE}
 budget %>%
   merge_translation(translated_ministry, "ministry") %>%
   merge_translation(translated_budgetary_unit, "budgetary_unit") %>%
   merge_translation(translated_budget_plan, "budget_plan") %>%
-  merge_translation(translated_output, "output")
+  merge_translation(translated_output, "output") %>%
+  merge_translation(translated_category_lv1, "category_lv1") %>%
+  select(names(budget), everything())
+```
+
+```{targets upload_to_gsheet, tar_simple = TRUE}
+# googlesheets4::gs4_create("65_thailand_budget_extracted_b4_cleansing_with_ENlang",
+#            sheets = list(DATA = head(translated_budget, 10)))
+googlesheets4::sheet_write(
+  data = translated_budget,
+  ss = "https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing",
+  sheet = "DATA"
+)
 ```
 
 # Pipeline
@@ -120,7 +139,7 @@ tar_make()
 tar_visnetwork()
 ```
 
-# Output
+# Example Output
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -130,22 +149,6 @@ library(kableExtra)
 library(stringr)
 library(forcats)
 library(scales)
-```
-
-```{r}
-tar_read(budget) %>%
-  skimr::skim()
-```
-
-```{r}
-tar_read(unique_sentences) %>%
-  head()
-```
-
-```{r}
-tar_read(translated_sentences) %>%
-  dplyr::select(-detectedSourceLanguage) %>%
-  kableExtra::kbl()
 ```
 
 ```{r}
@@ -177,4 +180,10 @@ tar_read(budget_en) %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(x = "Amount in Million Thai Bahts", y = "Ministry")
 ```
+
+```{r}
+tar_read(budget) %>%
+  skimr::skim()
+```
+
 
