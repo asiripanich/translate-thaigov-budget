@@ -22,8 +22,8 @@ This repository contains R code that uses [Google Translation
 API](https://cloud.google.com/translate) to translate [2022 Thai
 Government Budget
 data](https://github.com/kaogeek/thailand-budget-pdf2csv) from Thai to
-English. A translated version of the data can be viewed and downloaded
-from here:
+English. A *partially* translated version of the data can be viewed and
+downloaded from here:
 
 > <https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing>
 
@@ -165,19 +165,8 @@ tar_make()
 #> ✓ skip target translated_ministry
 #> ✓ skip target translated_budgetary_unit
 #> ✓ skip target translated_budget
-#> • start target upload_to_gsheet
-#> ✓ Successfully auto-authenticated via /home/amarin/erudite-mote-320609-e5378672f621.json
-#> ! Using an auto-discovered, cached token.
-#>   To suppress this message, modify your code or options to clearly consent to
-#>   the use of a cached token.
-#>   See gargle's "Non-interactive auth" vignette for more details:
-#>   <https://gargle.r-lib.org/articles/non-interactive-auth.html>
-#> ℹ The googlesheets4 package is using a cached token for
-#>   'rciti.emission.ec2@gmail.com'.
-#> ✓ Writing to "65_thailand_budget_extracted_b4_cleansing_with_ENlang".
-#> ✓ Writing to sheet 'DATA'.
-#> • built target upload_to_gsheet
-#> • end pipeline
+#> ✓ skip target upload_to_gsheet
+#> ✓ skip pipeline
 ```
 
 ``` r
@@ -186,7 +175,7 @@ tar_visnetwork()
 
 ![](README_files/figure-gfm/visnetwork-1.png)<!-- -->
 
-# Output
+# Example Output
 
 ``` r
 library(dplyr)
@@ -196,14 +185,6 @@ library(kableExtra)
 library(stringr)
 library(forcats)
 library(scales)
-```
-
-``` r
-tar_read(unique_sentences) %>%
-  head()
-#> [1] "งบกลาง"                  "สำนักนายกรัฐมนตรี"         
-#> [3] "กระทรวงกลาโหม"           "กระทรวงการคลัง"          
-#> [5] "กระทรวงการต่างประเทศ"     "กระทรวงการท่องเที่ยวและกีฬา"
 ```
 
 ``` r
@@ -259,32 +240,28 @@ output\_en
 <tbody>
 <tr>
 <td style="text-align:left;">
-แผนงานยุทธศาสตร์เสริมสร้างความมั่นคงของสถาบันหลักของชาติ
+แผนงานยุทธศาสตร์เสริมสร้างให้คนมีสุขภาวะที่ดี
 </td>
 <td style="text-align:left;">
-Strategic work plan to strengthen the security of the main national
-institutions
+Strategic plans to promote people’s well-being
 </td>
 <td style="text-align:left;">
-สำนักงานตำรวจแห่งชาติ
+มหาวิทยาลัยขอนแก่น
 </td>
 <td style="text-align:left;">
-Royal Thai Police
+Khon Kaen University
 </td>
 <td style="text-align:left;">
-งบดำเนินงาน
+งบเงินอุดหนุน
 </td>
 <td style="text-align:left;">
-operating budget
+subsidy budget
 </td>
 <td style="text-align:left;">
-ส่วนราชการไม่สังกัดสำนักนายกรัฐมนตรี กระทรวง หรือทบวง
-และหน่วยงานภายใต้การควบคุมดูแลของนายกรัฐมนตรี
+กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (3)
 </td>
 <td style="text-align:left;">
-Government agencies not affiliated with the Prime Minister’s Office,
-Ministries or Ta-buangs and agencies under the supervision of the Prime
-Minister
+Ministry of Higher Education, Science, Research and Innovation (3)
 </td>
 <td style="text-align:left;">
 NA
@@ -295,60 +272,28 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
+แผนงานบูรณาการบริหารจัดการทรัพยากรน้ำ
 </td>
 <td style="text-align:left;">
-Fundamental Plan for Competitiveness
+Integrated water resource management plan
 </td>
 <td style="text-align:left;">
-กรมเจ้าท่า
+องค์การจัดการน้ำเสีย
 </td>
 <td style="text-align:left;">
-Marine Department
+wastewater management organization
 </td>
 <td style="text-align:left;">
-งบดำเนินงาน
+งบลงทุน
 </td>
 <td style="text-align:left;">
-operating budget
+investment budget
 </td>
 <td style="text-align:left;">
-กระทรวงคมนาคม
+รัฐวิสาหกิจ
 </td>
 <td style="text-align:left;">
-Ministry of Transport
-</td>
-<td style="text-align:left;">
-การพัฒนาและบำรุงรักษาโครงสร้างพื้นฐานด้านการขนส่งทางน้ำ
-</td>
-<td style="text-align:left;">
-Development and maintenance of water transport infrastructure
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานบุคลากรภาครัฐ
-</td>
-<td style="text-align:left;">
-Government Personnel Program
-</td>
-<td style="text-align:left;">
-กรมที่ดิน
-</td>
-<td style="text-align:left;">
-Department of Lands
-</td>
-<td style="text-align:left;">
-งบบุคลากร
-</td>
-<td style="text-align:left;">
-personnel budget
-</td>
-<td style="text-align:left;">
-กระทรวงมหาดไทย
-</td>
-<td style="text-align:left;">
-Ministry of Interior
+state enterprise
 </td>
 <td style="text-align:left;">
 NA
@@ -359,127 +304,29 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการพัฒนาจังหวัดและกลุ่มจังหวัดแบบบูรณาการ
+แผนงานยุทธศาสตร์จัดการผลกระทบจากการเปลี่ยนแปลงสภาวะภูมิอากาศ
 </td>
 <td style="text-align:left;">
-Strategic work plan to promote the development of provinces and
-integrated provincial groups
+Climate Change Impact Strategic Work Plan
 </td>
 <td style="text-align:left;">
-จังหวัดน่าน
+สำนักงานปลัดกระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม
 </td>
 <td style="text-align:left;">
-Nan Province
+Office of the Permanent Secretary, Ministry of Digital Economy and
+Society
 </td>
 <td style="text-align:left;">
-งบรายจ่ายอื่น
+งบลงทุน
 </td>
 <td style="text-align:left;">
-Other expenditures
+investment budget
 </td>
 <td style="text-align:left;">
-จังหวัดและกลุ่มจังหวัด (2)
+กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม
 </td>
 <td style="text-align:left;">
-Provinces and provincial groups (2)
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
-</td>
-<td style="text-align:left;">
-Fundamental Plan for Competitiveness
-</td>
-<td style="text-align:left;">
-กรมการขนส่งทางราง
-</td>
-<td style="text-align:left;">
-Department of Rail Transport
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงคมนาคม
-</td>
-<td style="text-align:left;">
-Ministry of Transport
-</td>
-<td style="text-align:left;">
-นโยบายและแผนการพัฒนาด้านการขนส่งทางราง และมาตรฐานเกี่ยวกับการขนส่งทางราง
-</td>
-<td style="text-align:left;">
-Policies and plans for the development of rail transport and standards
-on rail transport
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการสร้างโอกาสและความเสมอภาคทางสังคม
-</td>
-<td style="text-align:left;">
-Fundamentals of Opportunity Building and Social Equality
-</td>
-<td style="text-align:left;">
-สำนักงานปลัดกระทรวงวัฒนธรรม
-</td>
-<td style="text-align:left;">
-Office of the Permanent Secretary, Ministry of Culture
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงวัฒนธรรม
-</td>
-<td style="text-align:left;">
-Ministry of Culture
-</td>
-<td style="text-align:left;">
-นโยบาย แผนด้านศิลปะ ศาสนา และวัฒนธรรม ได้รับการบริหารจัดการ
-</td>
-<td style="text-align:left;">
-Policies, plans on arts, religion and culture are managed.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์พัฒนาศักยภาพการป้องกันประเทศและความพร้อมเผชิญภัยคุกคามทุกมิติ
-</td>
-<td style="text-align:left;">
-Strategic plans to develop national defense capabilities and readiness
-to face threats in all dimensions
-</td>
-<td style="text-align:left;">
-กองทัพบก
-</td>
-<td style="text-align:left;">
-army
-</td>
-<td style="text-align:left;">
-งบรายจ่ายอื่น
-</td>
-<td style="text-align:left;">
-Other expenditures
-</td>
-<td style="text-align:left;">
-กระทรวงกลาโหม
-</td>
-<td style="text-align:left;">
-Ministry of Defense
+Ministry of Digital Economy and Society
 </td>
 <td style="text-align:left;">
 NA
@@ -497,10 +344,10 @@ Strategic plans to promote decentralization to local government
 organizations
 </td>
 <td style="text-align:left;">
-เทศบาลนครในพื้นที่จังหวัดตรัง เทศบาลนครตรัง
+เทศบาลเมืองในพื้นที่จังหวัดเชียงใหม่ เทศบาลเมืองแม่โจ้
 </td>
 <td style="text-align:left;">
-Municipality in Trang Province Trang
+Municipality in Chiang Mai Province Mae Jo Municipality
 </td>
 <td style="text-align:left;">
 งบเงินอุดหนุน
@@ -523,44 +370,75 @@ Product of Public Service Arrangement
 </tr>
 <tr>
 <td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการพัฒนาจังหวัดและกลุ่มจังหวัดแบบบูรณาการ
+</td>
+<td style="text-align:left;">
+Strategic work plan to promote the development of provinces and
+integrated provincial groups
+</td>
+<td style="text-align:left;">
+จังหวัดอุบลราชธานี
+</td>
+<td style="text-align:left;">
+Ubon Ratchathani Province
+</td>
+<td style="text-align:left;">
+งบลงทุน
+</td>
+<td style="text-align:left;">
+investment budget
+</td>
+<td style="text-align:left;">
+จังหวัดและกลุ่มจังหวัด (2)
+</td>
+<td style="text-align:left;">
+Provinces and provincial groups (2)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
 </td>
 <td style="text-align:left;">
 Fundamental Plan for Human Resources Development and Enhancement
 </td>
 <td style="text-align:left;">
-กรมอนามัย
+มหาวิทยาลัยธรรมศาสตร์
 </td>
 <td style="text-align:left;">
-Department of Health
+Thammasat University
 </td>
 <td style="text-align:left;">
-งบดำเนินงาน
+งบเงินอุดหนุน
 </td>
 <td style="text-align:left;">
-operating budget
+subsidy budget
 </td>
 <td style="text-align:left;">
-กระทรวงสาธารณสุข
+กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (4)
 </td>
 <td style="text-align:left;">
-Ministry of Health
+Ministry of Higher Education, Science, Research and Innovation (4)
 </td>
 <td style="text-align:left;">
-พัฒนาและบริการการส่งเสริมสุขภาพและอนามัยสิ่งแวดล้อม ที่เหมาะสมกับประชาชน
-ชุมชนและภาคีเครือข่าย
+ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์สุขภาพ
 </td>
 <td style="text-align:left;">
-Developing and promoting health and environmental health services
-suitable for the people Community and network partners
+Health Science Graduates
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-แผนงานยุทธศาสตร์การเกษตรสร้างมูลค่า
+แผนงานยุทธศาสตร์เสริมสร้างพลังทางสังคม
 </td>
 <td style="text-align:left;">
-Value-Creating Agriculture Strategic Work Plan
+Social Empowerment Strategic Plan
 </td>
 <td style="text-align:left;">
 กรมประมง
@@ -585,6 +463,103 @@ NA
 </td>
 <td style="text-align:left;">
 NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Competitiveness
+</td>
+<td style="text-align:left;">
+กรมธุรกิจพลังงาน
+</td>
+<td style="text-align:left;">
+Department of Energy Business
+</td>
+<td style="text-align:left;">
+งบดำเนินงาน
+</td>
+<td style="text-align:left;">
+operating budget
+</td>
+<td style="text-align:left;">
+กระทรวงพลังงาน
+</td>
+<td style="text-align:left;">
+Ministry of Energy
+</td>
+<td style="text-align:left;">
+การอนุญาต กำกับ ดูแล ธุรกิจพลังงาน
+</td>
+<td style="text-align:left;">
+Authorization and supervision of the energy business
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Human Resources Development and Enhancement
+</td>
+<td style="text-align:left;">
+มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี
+</td>
+<td style="text-align:left;">
+King Mongkut’s University of Technology Thonburi
+</td>
+<td style="text-align:left;">
+งบเงินอุดหนุน
+</td>
+<td style="text-align:left;">
+subsidy budget
+</td>
+<td style="text-align:left;">
+กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (3)
+</td>
+<td style="text-align:left;">
+Ministry of Higher Education, Science, Research and Innovation (3)
+</td>
+<td style="text-align:left;">
+ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์และเทคโนโลยี
+</td>
+<td style="text-align:left;">
+science and technology graduates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Competitiveness
+</td>
+<td style="text-align:left;">
+สำนักงานปลัดกระทรวงเกษตรและสหกรณ์
+</td>
+<td style="text-align:left;">
+Office of the Permanent Secretary, Ministry of Agriculture and
+Cooperatives
+</td>
+<td style="text-align:left;">
+งบดำเนินงาน
+</td>
+<td style="text-align:left;">
+operating budget
+</td>
+<td style="text-align:left;">
+กระทรวงเกษตรและสหกรณ์
+</td>
+<td style="text-align:left;">
+Ministry of Agriculture and Cooperatives
+</td>
+<td style="text-align:left;">
+อำนวยการและบริหารจัดการด้านการเกษตร
+</td>
+<td style="text-align:left;">
+Agricultural Administration and Management
 </td>
 </tr>
 </tbody>
