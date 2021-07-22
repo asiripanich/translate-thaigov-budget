@@ -28,10 +28,10 @@ downloaded from here:
 > <https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing>
 
 So far I have only translated `ministry`, `budgetary_unit`,
-`budget_plan`, `output`, and `category_lv1` columns using my free Google
-monthly quota. If you are interested to contribute, please submit a pull
-request with other columns translated to English. Feel free to use the R
-code below. :)
+`budget_plan`, `output`, `project`, and `category_lv1` columns using my
+free Google monthly quota. If you are interested to contribute, please
+submit a pull request with other columns translated to English. Feel
+free to use the R code below. :)
 
 ``` r
 options(tidyverse.quiet = TRUE)
@@ -58,6 +58,14 @@ tar_target(budget_raw, {
 ``` r
 list(
   tar_target(budget, budget_raw %>% janitor::clean_names()),
+  tar_target(budget_cleansed, {
+    budget %>%
+      filter(fiscal_year > 0) %>%
+      filter(amount > 0) %>%
+      mutate(ministry = ifelse(grepl("กระทรวงการอุดมศึกษา วิทยาศาสตร์", ministry) == TRUE, 
+                               "กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม",
+                               ministry))
+  }),
   tar_target(unique_sentences, {
     budget %>%
       select(
@@ -99,6 +107,11 @@ list(
       unique() %>%
       gl_translate(target = "en")
   }),
+  tar_target(translated_project, {
+    budget$project %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
   tar_target(translated_output, {
     budget$output %>%
       unique() %>%
@@ -131,6 +144,7 @@ tar_target(translated_budget, {
     merge_translation(translated_budgetary_unit, "budgetary_unit") %>%
     merge_translation(translated_budget_plan, "budget_plan") %>%
     merge_translation(translated_output, "output") %>%
+    merge_translation(translated_project, "project") %>%
     merge_translation(translated_category_lv1, "category_lv1") %>%
     select(names(budget), everything())
 })
@@ -162,8 +176,10 @@ tar_make()
 #> ✓ skip target translated_budget_plan
 #> ✓ skip target translated_category_lv1
 #> ✓ skip target unique_sentences
+#> ✓ skip target budget_cleansed
 #> ✓ skip target translated_ministry
 #> ✓ skip target translated_budgetary_unit
+#> ✓ skip target translated_project
 #> ✓ skip target translated_budget
 #> ✓ skip target upload_to_gsheet
 #> ✓ skip pipeline
@@ -173,7 +189,7 @@ tar_make()
 tar_visnetwork()
 ```
 
-![](README_files/figure-gfm/target-visnetwork-1.png)<!-- -->
+<img src="README_files/figure-gfm/target-visnetwork-1.png" width="100%" />
 
 # Example Output
 
@@ -185,6 +201,7 @@ library(kableExtra)
 library(stringr)
 library(forcats)
 library(scales)
+library(targets)
 ```
 
 ``` r
@@ -235,22 +252,262 @@ output
 <th style="text-align:left;">
 output\_en
 </th>
+<th style="text-align:left;">
+project
+</th>
+<th style="text-align:left;">
+project\_en
+</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-แผนงานบูรณาการพัฒนาด้านดด้านคมนาคมและระบบโลจิสติกส์
+แผนงานยุทธศาสตร์พัฒนาศักยภาพคนตลอดช่วงชีวิต
+</td>
+<td style="text-align:left;">
+Strategic plans to develop people’s potential throughout their lives
+</td>
+<td style="text-align:left;">
+กรมกิจการสตรีและสถาบันครอบครัว
+</td>
+<td style="text-align:left;">
+Department of Women’s Affairs and Family Institute
+</td>
+<td style="text-align:left;">
+งบดำเนินงาน
+</td>
+<td style="text-align:left;">
+operating budget
+</td>
+<td style="text-align:left;">
+กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์
+</td>
+<td style="text-align:left;">
+Ministry of Social Development and Human Security
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+โครงการพัฒนาทักษะอาชีพแก่สตรีและครอบครัว
+สู่ความยั่งยืนของสตรีและครอบครัว
+</td>
+<td style="text-align:left;">
+Professional Skills Development Program for Women and Families towards
+the sustainability of women and families
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+Strategic plans to promote decentralization to local government
+organizations
+</td>
+<td style="text-align:left;">
+เทศบาลเมืองในพื้นที่จังหวัดสงขลา เทศบาลเมืองปาดังเบซาร์
+</td>
+<td style="text-align:left;">
+Municipality in Songkhla Province Padang Besar Municipality
+</td>
+<td style="text-align:left;">
+งบเงินอุดหนุน
+</td>
+<td style="text-align:left;">
+subsidy budget
+</td>
+<td style="text-align:left;">
+องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+local government organization
+</td>
+<td style="text-align:left;">
+ผลผลิตการจัดบริการสาธารณะ
+</td>
+<td style="text-align:left;">
+Product of Public Service Arrangement
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์สร้างการเติบโตอย่างยั่งยืนอนุรักษ์ฟื้นฟูและป้องกันการทำลายทรัพยากรธรรมชาติ
+</td>
+<td style="text-align:left;">
+Strategic plans for sustainable growth, conservation, restoration and
+prevention of natural resource destruction
+</td>
+<td style="text-align:left;">
+องค์การอุตสาหกรรมป่าไม้
+</td>
+<td style="text-align:left;">
+Forest Industry Organization
+</td>
+<td style="text-align:left;">
+งบลงทุน
+</td>
+<td style="text-align:left;">
+investment budget
+</td>
+<td style="text-align:left;">
+รัฐวิสาหกิจ
+</td>
+<td style="text-align:left;">
+state enterprise
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+โครงการช้างเลี้ยงเพื่อการอนุรักษ์
+</td>
+<td style="text-align:left;">
+Elephant Conservation Project
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์พัฒนาบริการประชาชนและการพัฒนาประสิทธิภาพภาครัฐ
+</td>
+<td style="text-align:left;">
+Strategic Work Plan for Developing People’s Services and Developing
+Government Efficiency
+</td>
+<td style="text-align:left;">
+กรมบัญชีกลาง
+</td>
+<td style="text-align:left;">
+Comptroller General’s Department
+</td>
+<td style="text-align:left;">
+งบดำเนินงาน
+</td>
+<td style="text-align:left;">
+operating budget
+</td>
+<td style="text-align:left;">
+กระทรวงการคลัง
+</td>
+<td style="text-align:left;">
+Ministry of Finance
+</td>
+<td style="text-align:left;">
+การบริหารและกำกับดูแลด้านรายจ่ายภาครัฐ
+</td>
+<td style="text-align:left;">
+Administration and supervision of government expenditures
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+Strategic plans to promote decentralization to local government
+organizations
+</td>
+<td style="text-align:left;">
+องค์การบริหารส่วนจังหวัดน่าน
+</td>
+<td style="text-align:left;">
+Nan Provincial Administrative Organization
+</td>
+<td style="text-align:left;">
+งบเงินอุดหนุน
+</td>
+<td style="text-align:left;">
+subsidy budget
+</td>
+<td style="text-align:left;">
+องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+local government organization
+</td>
+<td style="text-align:left;">
+ผลผลิตการจัดบริการสาธารณะ
+</td>
+<td style="text-align:left;">
+Product of Public Service Arrangement
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Human Resources Development and Enhancement
+</td>
+<td style="text-align:left;">
+สำนักงานปลัดกระทรวงศึกษาธิการ
+</td>
+<td style="text-align:left;">
+Office of the Permanent Secretary, Ministry of Education
+</td>
+<td style="text-align:left;">
+งบลงทุน
+</td>
+<td style="text-align:left;">
+investment budget
+</td>
+<td style="text-align:left;">
+กระทรวงศึกษาธิการ
+</td>
+<td style="text-align:left;">
+Ministry of Education
+</td>
+<td style="text-align:left;">
+นโยบายและแผนด้านการศึกษา
+</td>
+<td style="text-align:left;">
+Education policies and plans
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานบูรณาการพัฒนาด้านคมนาคมและระบบโลจิสติกส์
 </td>
 <td style="text-align:left;">
 Integrated work plan for the development of transport and logistics
 systems
 </td>
 <td style="text-align:left;">
-กรมทางหลวงชนบท
+กรมทางหลวง
 </td>
 <td style="text-align:left;">
-Department of Rural Roads
+Department of Highways
 </td>
 <td style="text-align:left;">
 งบลงทุน
@@ -270,234 +527,11 @@ NA
 <td style="text-align:left;">
 NA
 </td>
-</tr>
-<tr>
 <td style="text-align:left;">
-แผนงานพื้นฐานด้านการปรับสมดุลและพัฒนาระบบการบริหารจัดการภาครัฐ
+โครงการก่อสร้างโครงข่ายทางหลวงแผ่นดิน
 </td>
 <td style="text-align:left;">
-Fundamental Plan for Balancing and Developing Government Management
-System
-</td>
-<td style="text-align:left;">
-สถาบันนิติวิทยาศาสตร์
-</td>
-<td style="text-align:left;">
-forensic science institute
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงยุติธรรม
-</td>
-<td style="text-align:left;">
-Ministry of Justice
-</td>
-<td style="text-align:left;">
-มาตรฐานงานด้านนิติวิทยาศาสตร์ได้รับการกำหนด
-</td>
-<td style="text-align:left;">
-Standards for forensic science work have been established.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-Strategic plans to promote decentralization to local government
-organizations
-</td>
-<td style="text-align:left;">
-เทศบาลเมืองในพื้นที่จังหวัดพัทลุง เทศบาลเมืองพัทลุง
-</td>
-<td style="text-align:left;">
-Municipality in Phatthalung Province Phatthalung City Municipality
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-local government organization
-</td>
-<td style="text-align:left;">
-ผลผลิตการจัดบริการสาธารณะ
-</td>
-<td style="text-align:left;">
-Product of Public Service Arrangement
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-Strategic plans to promote decentralization to local government
-organizations
-</td>
-<td style="text-align:left;">
-เทศบาลเมืองในพื้นที่จังหวัดอุตรดิตถ์ เทศบาลเมืองอุตรดิตถ์
-</td>
-<td style="text-align:left;">
-Municipality in Uttaradit Province Uttaradit City Municipality
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-local government organization
-</td>
-<td style="text-align:left;">
-ผลผลิตการจัดบริการสาธารณะ
-</td>
-<td style="text-align:left;">
-Product of Public Service Arrangement
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
-</td>
-<td style="text-align:left;">
-Fundamental Plan for Human Resources Development and Enhancement
-</td>
-<td style="text-align:left;">
-มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี
-</td>
-<td style="text-align:left;">
-Rajamangala University of Technology Thanyaburi
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (3)
-</td>
-<td style="text-align:left;">
-Ministry of Higher Education, Science, Research and Innovation (3)
-</td>
-<td style="text-align:left;">
-ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์และเทคโนโลยี
-</td>
-<td style="text-align:left;">
-science and technology graduates
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
-</td>
-<td style="text-align:left;">
-Fundamental Plan for Human Resources Development and Enhancement
-</td>
-<td style="text-align:left;">
-กรมควบคุมโรค
-</td>
-<td style="text-align:left;">
-Department of Disease Control
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงสาธารณสุข
-</td>
-<td style="text-align:left;">
-Ministry of Health
-</td>
-<td style="text-align:left;">
-การบริการรักษาและฟื้นฟูสภาพ เฉพาะโรค ในกลุ่มโรคติดต่อสำคัญ
-โรคอุบัติใหม่และภัยสุขภาพ
-</td>
-<td style="text-align:left;">
-Treatment and rehabilitation services for specific diseases in major
-communicable diseases Emerging Diseases and Health Hazards
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์พัฒนาพื้นที่และเมืองน่าอยู่อัจฉริยะ
-</td>
-<td style="text-align:left;">
-Strategic plans to develop smart livable areas and cities
-</td>
-<td style="text-align:left;">
-กรมโยธาธิการและผังเมือง
-</td>
-<td style="text-align:left;">
-Department of Public Works and Town & Country Planning
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-กระทรวงมหาดไทย
-</td>
-<td style="text-align:left;">
-Ministry of Interior
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์พัฒนาพื้นที่เขตเศรษฐกิจพิเศษ
-</td>
-<td style="text-align:left;">
-Strategic work plan for the development of special economic zones
-</td>
-<td style="text-align:left;">
-กรมการจัดหางาน
-</td>
-<td style="text-align:left;">
-Department of Employment
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงแรงงาน
-</td>
-<td style="text-align:left;">
-Ministry of Labor
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
+National highway network construction project
 </td>
 </tr>
 <tr>
@@ -508,22 +542,66 @@ NA
 Value-Creating Agriculture Strategic Work Plan
 </td>
 <td style="text-align:left;">
-ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
+กรมประมง
 </td>
 <td style="text-align:left;">
-Bank for Agriculture and Agricultural Cooperatives
+Department of Fisheries
 </td>
 <td style="text-align:left;">
-งบรายจ่ายอื่น
+งบดำเนินงาน
 </td>
 <td style="text-align:left;">
-Other expenditures
+operating budget
+</td>
+<td style="text-align:left;">
+กระทรวงเกษตรและสหกรณ์
+</td>
+<td style="text-align:left;">
+Ministry of Agriculture and Cooperatives
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+โครงการผลิตและขยายสัตว์น้ำพันธุ์ดี 6ส
+</td>
+<td style="text-align:left;">
+Project for production and expansion of good breed 6S
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Competitiveness
+</td>
+<td style="text-align:left;">
+การท่องเที่ยวแห่งประเทศไทย
+</td>
+<td style="text-align:left;">
+Tourism Authority of Thailand
+</td>
+<td style="text-align:left;">
+งบเงินอุดหนุน
+</td>
+<td style="text-align:left;">
+subsidy budget
 </td>
 <td style="text-align:left;">
 รัฐวิสาหกิจ
 </td>
 <td style="text-align:left;">
 state enterprise
+</td>
+<td style="text-align:left;">
+การส่งเสริมการท่องเที่ยวตลาดในประเทศ
+</td>
+<td style="text-align:left;">
+Promotion of domestic market tourism
 </td>
 <td style="text-align:left;">
 NA
@@ -534,29 +612,34 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการพัฒนาจังหวัดและกลุ่มจังหวัดแบบบูรณาการ
+แผนงานบุคลากรภาครัฐ
 </td>
 <td style="text-align:left;">
-Strategic work plan to promote the development of provinces and
-integrated provincial groups
+Government Personnel Program
 </td>
 <td style="text-align:left;">
-กลุ่มจังหวัดภาคกลางตอนบน
+กรมเจ้าท่า
 </td>
 <td style="text-align:left;">
-Upper Central Province Group
+Marine Department
 </td>
 <td style="text-align:left;">
-งบลงทุน
+งบดำเนินงาน
 </td>
 <td style="text-align:left;">
-investment budget
+operating budget
 </td>
 <td style="text-align:left;">
-จังหวัดและกลุ่มจังหวัด (1)
+กระทรวงคมนาคม
 </td>
 <td style="text-align:left;">
-Provinces and provincial groups (1)
+Ministry of Transport
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
 </td>
 <td style="text-align:left;">
 NA
@@ -567,6 +650,13 @@ NA
 </tr>
 </tbody>
 </table>
+
+``` r
+my_theme <- 
+  theme_bw(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  # labs(x = "Amount in Million Thai Bahts")
+```
 
 ``` r
 tar_read(budget_en) %>%
@@ -1302,3 +1392,33 @@ amount
 </tr>
 </tbody>
 </table>
+<!-- ```{r} -->
+<!-- tar_read(budget_cleansed) %>% -->
+<!--   filter(item_description == "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 17 แห่ง") %>% -->
+<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
+<!--   geom_line() + -->
+<!--   labs( -->
+<!--     title = "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 1", -->
+<!--     x = "Amount in Million Thai Bahts" -->
+<!--   ) + -->
+<!--   my_theme -->
+<!-- ``` -->
+<!-- ```{r fig.height=50, dpi=300} -->
+<!-- tar_read(budget_cleansed) %>% -->
+<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
+<!--   geom_col() + -->
+<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
+<!--   # scale_y_log10() + -->
+<!--   facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
+<!--   my_theme -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- tar_read(budget_cleansed) %>% -->
+<!--   ggplot(data = ., aes(x = fiscal_year, y = amount, fill = ministry)) + -->
+<!--   geom_col() + -->
+<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
+<!--   guides(fill = "none") + -->
+<!--   # scale_y_log10() + -->
+<!--   # facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
+<!--   my_theme -->
+<!-- ``` -->

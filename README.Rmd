@@ -5,7 +5,9 @@ always_allow_html: true
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", dpi = 320)
+Sys.setlocale("LC_ALL", "Thai")
+options(encoding = "UTF-8")
 ```
 
 ```{r, include = FALSE}
@@ -16,14 +18,15 @@ library(targets)
 tar_unscript()
 ```
 
-<blockquote class="twitter-tweet"><p lang="th" dir="ltr">[ Excel <a href="https://twitter.com/hashtag/%E0%B8%87%E0%B8%9A65?src=hash&amp;ref_src=twsrc%5Etfw">#งบ65</a> สำเร็จแล้ว! ใช้ไปเลยชั่วลูกชั่วหลาน ]<br><br>ดาวน์โหลด: <a href="https://t.co/PuhflF8DEF">https://t.co/PuhflF8DEF</a><br><br>เราจะทำตามสัญญา ขอเวลาอีกไม่นาน ...<br><br>หลัง งปม. วาระ 1 ผ่านสภา พวกเราเคยให้สัญญากับทุกท่านไว้ว่า จะรวมพลังสาย dev เพื่อแปลงงบ pdf สู่ machine-readable แบบทำครั้งเดียว ใช้ได้ชั่วลูกชั่วหลาน <a href="https://t.co/b0pWMF3jDc">pic.twitter.com/b0pWMF3jDc</a></p>&mdash; ณัฐพงษ์ เรืองปัญญาวุฒิ (เท้ง) (@teng_mfp) <a href="https://twitter.com/teng_mfp/status/1417872910383865859?ref_src=twsrc%5Etfw">July 21, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<blockquote class="twitter-tweet"><p lang="th" dir="ltr">[ Excel <a href="https://twitter.com/hashtag/%E0%B8%87%E0%B8%9A65?src=hash&amp;ref_src=twsrc%5Etfw">#งบ65</a> สำเร็จแล้ว! ใช้ไปเลยชั่วลูกชั่วหลาน ]<br><br>ดาวน์โหลด: <a href="https://t.co/PuhflF8DEF">https://t.co/PuhflF8DEF</a><br><br>เราจะทำตามสัญญา ขอเวลาอีกไม่นาน ...<br><br>หลัง งปม. วาระ 1 ผ่านสภา พวกเราเคยให้สัญญากับทุกท่านไว้ว่า จะรวมพลังสาย dev เพื่อแปลงงบ pdf สู่ machine-readable แบบทำครั้งเดียว ใช้ได้ชั่วลูกชั่วหลาน <a href="https://t.co/b0pWMF3jDc">pic.twitter.com/b0pWMF3jDc</a></p>&mdash; ณัฐพงษ์ เรืองปัญญาวุฒิ (เท้ง) (@teng_mfp) <a href="https://twitter.com/teng_mfp/status/1417872910383865859?ref_src=twsrc%5Etfw">July 21, 2021</a></blockquote>
 
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-This repository contains R code that uses [Google Translation API](https://cloud.google.com/translate) to translate [2022 Thai Government Budget data](https://github.com/kaogeek/thailand-budget-pdf2csv) from Thai to English. A *partially* translated version of the data can be viewed and downloaded from here: 
+This repository contains R code that uses [Google Translation API](https://cloud.google.com/translate) to translate [2022 Thai Government Budget data](https://github.com/kaogeek/thailand-budget-pdf2csv) from Thai to English. A *partially* translated version of the data can be viewed and downloaded from here:
 
-> https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing
+> <https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing>
 
-So far I have only translated `ministry`, `budgetary_unit`, `budget_plan`, `output`, and `category_lv1` columns using my free Google monthly quota. If you are interested to contribute, please submit a pull request with other columns translated to English. Feel free to use the R code below. :)
+So far I have only translated `ministry`, `budgetary_unit`, `budget_plan`, `output`, `project`, and `category_lv1` columns using my free Google monthly quota. If you are interested to contribute, please submit a pull request with other columns translated to English. Feel free to use the R code below. :)
 
 ```{targets, tar_globals = TRUE}
 options(tidyverse.quiet = TRUE)
@@ -45,6 +48,14 @@ read_sheet("https://docs.google.com/spreadsheets/d/1yyWXSTbq3CD_gNxks-krcSBzbszv
 ```{targets data-prep}
 list(
   tar_target(budget, budget_raw %>% janitor::clean_names()),
+  tar_target(budget_cleansed, {
+    budget %>%
+      filter(fiscal_year > 0) %>%
+      filter(amount > 0) %>%
+      mutate(ministry = ifelse(grepl("กระทรวงการอุดมศึกษา วิทยาศาสตร์", ministry) == TRUE, 
+                               "กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม",
+                               ministry))
+  }),
   tar_target(unique_sentences, {
     budget %>%
       select(
@@ -63,9 +74,13 @@ list(
 ```
 
 <!-- ```{targets chunks_of_unique_sentences, tar_simple = TRUE} -->
+
 <!-- unique_sentences %>% -->
+
 <!--   sample(size = 20, replace = FALSE) %>% -->
+
 <!--   split(., ceiling(seq_along(.) / 5)) -->
+
 <!-- ``` -->
 
 ```{targets translation}
@@ -85,6 +100,11 @@ list(
       unique() %>%
       gl_translate(target = "en")
   }),
+  tar_target(translated_project, {
+    budget$project %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
   tar_target(translated_output, {
     budget$output %>%
       unique() %>%
@@ -99,14 +119,23 @@ list(
 ```
 
 <!-- ```{targets translate-by-chunk}  -->
+
 <!-- list( -->
+
 <!--   tar_target( -->
+
 <!--     translated_chucks,  -->
+
 <!--     gl_translate(chunks_of_unique_sentences[[1]], target = "en"),  -->
+
 <!--     pattern = map(chunks_of_unique_sentences),  -->
+
 <!--     iteration = "list" -->
+
 <!--   ) -->
+
 <!-- ) -->
+
 <!-- ``` -->
 
 ```{targets translated_budget, tar_simple = TRUE}
@@ -115,6 +144,7 @@ budget %>%
   merge_translation(translated_budgetary_unit, "budgetary_unit") %>%
   merge_translation(translated_budget_plan, "budget_plan") %>%
   merge_translation(translated_output, "output") %>%
+  merge_translation(translated_project, "project") %>%
   merge_translation(translated_category_lv1, "category_lv1") %>%
   select(names(budget), everything())
 ```
@@ -135,7 +165,7 @@ googlesheets4::sheet_write(
 tar_make()
 ```
 
-```{r target-visnetwork}
+```{r target-visnetwork, out.width="100%"}
 tar_visnetwork()
 ```
 
@@ -149,6 +179,7 @@ library(kableExtra)
 library(stringr)
 library(forcats)
 library(scales)
+library(targets)
 ```
 
 ```{r}
@@ -162,7 +193,14 @@ translated_budget %>%
   kableExtra::kbl() 
 ```
 
-```{r total-budget-by-ministry, fig.height=10, dpi=300}
+```{r}
+my_theme <- 
+  theme_bw(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  # labs(x = "Amount in Million Thai Bahts")
+```
+
+```{r total-budget-by-ministry, fig.height=10}
 tar_read(budget_en) %>%
   mutate(ministry_en = ifelse(grepl("Ministry of Higher Education", ministry_en) == TRUE, 
                                "Ministry of Higher Education, Science, Research and Innovation",
@@ -186,4 +224,35 @@ tar_read(budget) %>%
   skimr::skim()
 ```
 
+<!-- ```{r} -->
+<!-- tar_read(budget_cleansed) %>% -->
+<!--   filter(item_description == "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 17 แห่ง") %>% -->
+<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
+<!--   geom_line() + -->
+<!--   labs( -->
+<!--     title = "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 1", -->
+<!--     x = "Amount in Million Thai Bahts" -->
+<!--   ) + -->
+<!--   my_theme -->
+<!-- ``` -->
 
+<!-- ```{r fig.height=50, dpi=300} -->
+<!-- tar_read(budget_cleansed) %>% -->
+<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
+<!--   geom_col() + -->
+<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
+<!--   # scale_y_log10() + -->
+<!--   facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
+<!--   my_theme -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- tar_read(budget_cleansed) %>% -->
+<!--   ggplot(data = ., aes(x = fiscal_year, y = amount, fill = ministry)) + -->
+<!--   geom_col() + -->
+<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
+<!--   guides(fill = "none") + -->
+<!--   # scale_y_log10() + -->
+<!--   # facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
+<!--   my_theme -->
+<!-- ``` -->
