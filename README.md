@@ -21,6 +21,12 @@ machine-readable แบบทำครั้งเดียว ใช้ได�
 ``` r
 options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("dplyr", "ggplot2", "googlesheets4", "tidyr", "skimr", "magrittr", "googleLanguageR"))
+merge_translation <- function(x, translation, column) {
+  translation %>%
+    merge(x, ., by.x = column, by.y = "text") %>%
+    select(-detectedSourceLanguage) %>%
+    rename_with( ~ gsub("translatedText", paste0(column, "_en"), .x, fixed = TRUE))
+}
 #> Established _targets.R and _targets_r/globals/unnamed-chunk-3.R.
 ```
 
@@ -76,6 +82,21 @@ list(
     budget$ministry %>%
       unique() %>%
       gl_translate(target = "en")
+  }),
+  tar_target(translated_budgetary_unit, {
+    budget$budgetary_unit %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
+  tar_target(translated_budget_plan, {
+    budget$budget_plan %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
+  tar_target(translated_output, {
+    budget$output %>%
+      unique() %>%
+      gl_translate(target = "en")
   })
 )
 #> Established _targets.R and _targets_r/targets/translation.R.
@@ -95,11 +116,11 @@ list(
 
 ``` r
 tar_target(translated_budget, {
-  translated_ministry %>%
-    mutate(translatedText = tools::toTitleCase(translatedText)) %>%
-    merge(budget, ., by.x = "ministry", by.y = "text") %>%
-    select(-detectedSourceLanguage) %>%
-    rename(ministry_en = "translatedText")
+  budget %>%
+    merge_translation(translated_ministry, "ministry") %>%
+    merge_translation(translated_budgetary_unit, "budgetary_unit") %>%
+    merge_translation(translated_budget_plan, "budget_plan") %>%
+    merge_translation(translated_output, "output")
 })
 #> Defined target translated_budget automatically from chunk code.
 #> Established _targets.R and _targets_r/targets/translated_budget.R.
@@ -111,8 +132,11 @@ tar_target(translated_budget, {
 tar_make()
 #> ✓ skip target budget_raw
 #> ✓ skip target budget
+#> ✓ skip target translated_output
+#> ✓ skip target translated_budget_plan
 #> ✓ skip target unique_sentences
 #> ✓ skip target translated_ministry
+#> ✓ skip target translated_budgetary_unit
 #> ✓ skip target sampled_sentences
 #> ✓ skip target chunks_of_unique_sentences
 #> ✓ skip target translated_budget
@@ -933,6 +957,324 @@ subsidies for personnel training and development expenses
 </td>
 <td style="text-align:left;">
 เงินอุดหนุนค่าใช้จ่ายในการฝึกอบรมและพัฒนาบุคลากร
+</td>
+</tr>
+</tbody>
+</table>
+
+``` r
+tar_load(translated_budget)
+cols_to_select <- names(translated_budget)[grepl("_en", names(translated_budget))]
+cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
+
+translated_budget %>%
+  dplyr::select(cols_to_select) %>%
+  dplyr::slice_sample(n = 10) %>%
+  kableExtra::kbl() 
+#> Note: Using an external vector in selections is ambiguous.
+#> ℹ Use `all_of(cols_to_select)` instead of `cols_to_select` to silence this message.
+#> ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
+#> This message is displayed once per session.
+```
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+budget\_plan
+</th>
+<th style="text-align:left;">
+budget\_plan\_en
+</th>
+<th style="text-align:left;">
+budgetary\_unit
+</th>
+<th style="text-align:left;">
+budgetary\_unit\_en
+</th>
+<th style="text-align:left;">
+ministry
+</th>
+<th style="text-align:left;">
+ministry\_en
+</th>
+<th style="text-align:left;">
+output
+</th>
+<th style="text-align:left;">
+output\_en
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Competitiveness
+</td>
+<td style="text-align:left;">
+สำนักงานคณะกรรมการส่งเสริมการลงทุน
+</td>
+<td style="text-align:left;">
+Office of the Board of Investment
+</td>
+<td style="text-align:left;">
+สำนักนายกรัฐมนตรี
+</td>
+<td style="text-align:left;">
+Prime Minister’s Office
+</td>
+<td style="text-align:left;">
+การลงทุนที่ได้รับการส่งเสริม
+</td>
+<td style="text-align:left;">
+promoted investment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Competitiveness
+</td>
+<td style="text-align:left;">
+กรมทางหลวง
+</td>
+<td style="text-align:left;">
+Department of Highways
+</td>
+<td style="text-align:left;">
+กระทรวงคมนาคม
+</td>
+<td style="text-align:left;">
+Ministry of Transport
+</td>
+<td style="text-align:left;">
+โครงข่ายทางหลวงมีความปลอดภัย
+</td>
+<td style="text-align:left;">
+The highway network is safe.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการสร้างการเติบโตบนคุณภาพชีวิตที่เป็นมิตรต่อสิ่งแวดล้อม
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Building Growth on an Environmentally Friendly
+Quality of Life
+</td>
+<td style="text-align:left;">
+สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม
+</td>
+<td style="text-align:left;">
+Office of Natural Resources and Environmental Policy and Planning
+</td>
+<td style="text-align:left;">
+กระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม
+</td>
+<td style="text-align:left;">
+Ministry of Natural Resources and Environment
+</td>
+<td style="text-align:left;">
+นโยบาย แผน กลไกเพื่อการจัดการคุณภาพสิ่งแวดล้อม และส่งเสริมการผลิต
+การบริโภคที่เป็นมิตรต่อสิ่งแวดล้อม
+และการดำเนินการด้านการประเมินผลกระทบสิ่งแวดล้อม
+ได้รับการพัฒนาและนำไปสู่การปฏิบัติ
+</td>
+<td style="text-align:left;">
+Policy, Plan, Mechanism for Environmental Quality Management and promote
+production environmentally friendly consumption and conducting
+environmental impact assessments It has been developed and put into
+practice.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Human Resources Development and Enhancement
+</td>
+<td style="text-align:left;">
+มหาวิทยาลัยเกษตรศาสตร์
+</td>
+<td style="text-align:left;">
+Kasetsart University
+</td>
+<td style="text-align:left;">
+กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (3)
+</td>
+<td style="text-align:left;">
+Ministry of Higher Education, Science, Research and Innovation (3)
+</td>
+<td style="text-align:left;">
+ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์และเทคโนโลยี
+</td>
+<td style="text-align:left;">
+science and technology graduates
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านความมั่นคง
+</td>
+<td style="text-align:left;">
+Security Fundamental Plan
+</td>
+<td style="text-align:left;">
+กองทัพเรือ
+</td>
+<td style="text-align:left;">
+navy
+</td>
+<td style="text-align:left;">
+กระทรวงกลาโหม
+</td>
+<td style="text-align:left;">
+Ministry of Defense
+</td>
+<td style="text-align:left;">
+การดำรงสภาพความพร้อมในการป้องกันประเทศ
+</td>
+<td style="text-align:left;">
+Maintaining a state of readiness to defend the country
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการพัฒนาจังหวัดและกลุ่มจังหวัดแบบบูรณาการ
+</td>
+<td style="text-align:left;">
+Strategic work plan to promote the development of provinces and
+integrated provincial groups
+</td>
+<td style="text-align:left;">
+กลุ่มจังหวัดภาคเหนือตอนล่าง
+</td>
+<td style="text-align:left;">
+lower northern provinces
+</td>
+<td style="text-align:left;">
+จังหวัดและกลุ่มจังหวัด (2)
+</td>
+<td style="text-align:left;">
+Provinces and provincial groups (2)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานบูรณาการเขตพัฒนาพิเศษภาคตะวันออก
+</td>
+<td style="text-align:left;">
+Integrated Work Plan of the Eastern Special Development Zone
+</td>
+<td style="text-align:left;">
+การรถไฟแห่งประเทศไทย
+</td>
+<td style="text-align:left;">
+State Railway of Thailand
+</td>
+<td style="text-align:left;">
+รัฐวิสาหกิจ
+</td>
+<td style="text-align:left;">
+state enterprise
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการพัฒนาจังหวัดและกลุ่มจังหวัดแบบบูรณาการ
+</td>
+<td style="text-align:left;">
+Strategic work plan to promote the development of provinces and
+integrated provincial groups
+</td>
+<td style="text-align:left;">
+จังหวัดตาก
+</td>
+<td style="text-align:left;">
+Tak Province
+</td>
+<td style="text-align:left;">
+จังหวัดและกลุ่มจังหวัด (2)
+</td>
+<td style="text-align:left;">
+Provinces and provincial groups (2)
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์เสริมสร้างให้คนมีสุขภาวะที่ดี
+</td>
+<td style="text-align:left;">
+Strategic plans to promote people’s well-being
+</td>
+<td style="text-align:left;">
+สำนักงานปลัดกระทรวงสาธารณสุข
+</td>
+<td style="text-align:left;">
+Office of the Permanent Secretary, Ministry of Public Health
+</td>
+<td style="text-align:left;">
+กระทรวงสาธารณสุข
+</td>
+<td style="text-align:left;">
+Ministry of Health
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+Strategic plans to promote decentralization to local government
+organizations
+</td>
+<td style="text-align:left;">
+องค์การบริหารส่วนจังหวัดระนอง
+</td>
+<td style="text-align:left;">
+Ranong Provincial Administrative Organization
+</td>
+<td style="text-align:left;">
+องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+local government organization
+</td>
+<td style="text-align:left;">
+ผลผลิตการจัดบริการสาธารณะ
+</td>
+<td style="text-align:left;">
+Product of Public Service Arrangement
 </td>
 </tr>
 </tbody>

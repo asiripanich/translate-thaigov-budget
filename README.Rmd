@@ -21,6 +21,12 @@ tar_unscript()
 ```{targets, tar_globals = TRUE}
 options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("dplyr", "ggplot2", "googlesheets4", "tidyr", "skimr", "magrittr", "googleLanguageR"))
+merge_translation <- function(x, translation, column) {
+  translation %>%
+    merge(x, ., by.x = column, by.y = "text") %>%
+    select(-detectedSourceLanguage) %>%
+    rename_with( ~ gsub("translatedText", paste0(column, "_en"), .x, fixed = TRUE))
+}
 ```
 
 # Targets
@@ -66,6 +72,21 @@ list(
     budget$ministry %>%
       unique() %>%
       gl_translate(target = "en")
+  }),
+  tar_target(translated_budgetary_unit, {
+    budget$budgetary_unit %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
+  tar_target(translated_budget_plan, {
+    budget$budget_plan %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
+  tar_target(translated_output, {
+    budget$output %>%
+      unique() %>%
+      gl_translate(target = "en")
   })
 )
 ```
@@ -82,11 +103,11 @@ list(
 ```
 
 ```{targets translated_budget, tar_simple = TRUE}
-translated_ministry %>%
-  mutate(translatedText = tools::toTitleCase(translatedText)) %>%
-  merge(budget, ., by.x = "ministry", by.y = "text") %>%
-  select(-detectedSourceLanguage) %>%
-  rename(ministry_en = "translatedText")
+budget %>%
+  merge_translation(translated_ministry, "ministry") %>%
+  merge_translation(translated_budgetary_unit, "budgetary_unit") %>%
+  merge_translation(translated_budget_plan, "budget_plan") %>%
+  merge_translation(translated_output, "output")
 ```
 
 # Pipeline
@@ -125,6 +146,17 @@ tar_read(unique_sentences) %>%
 tar_read(translated_sentences) %>%
   dplyr::select(-detectedSourceLanguage) %>%
   kableExtra::kbl()
+```
+
+```{r}
+tar_load(translated_budget)
+cols_to_select <- names(translated_budget)[grepl("_en", names(translated_budget))]
+cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
+
+translated_budget %>%
+  dplyr::select(cols_to_select) %>%
+  dplyr::slice_sample(n = 10) %>%
+  kableExtra::kbl() 
 ```
 
 ```{r total-budget-by-ministry, fig.height=10, dpi=300}
