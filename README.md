@@ -940,6 +940,9 @@ subsidies for personnel training and development expenses
 
 ``` r
 tar_read(budget_en) %>%
+  mutate(ministry_en = ifelse(grepl("Ministry of Higher Education", ministry_en) == TRUE, 
+                               "Ministry of Higher Education, Science, Research and Innovation",
+                               ministry_en)) %>%
   group_by(ministry_en) %>%
   summarise(amount = sum(amount, na.rm = TRUE)) %>%
   ggplot(data = ., aes(
@@ -947,10 +950,11 @@ tar_read(budget_en) %>%
     y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 40), amount)
   )) +
   geom_col() +
-  scale_x_continuous(labels = label_dollar(prefix = "")) +
-  scale_y_discrete(expand = c(0, 0.5)) +
+  scale_x_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) +
+  scale_y_discrete(expand = c(0, 0)) +
   theme_bw(base_size = 12) +
-  labs(x = "Amount in Thai Bahts", y = "Ministry")
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "Amount in Million Thai Bahts", y = "Ministry")
 ```
 
 ![](README_files/figure-gfm/total-budget-by-ministry-1.png)<!-- -->
