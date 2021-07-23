@@ -44,15 +44,10 @@ tar_target(budget_raw, {
 
 ``` r
 list(
-  tar_target(budget, budget_raw %>% janitor::clean_names()),
-  tar_target(budget_cleansed, {
-    budget %>%
-      filter(fiscal_year > 0) %>%
-      filter(amount > 0) %>%
-      mutate(ministry = ifelse(grepl("กระทรวงการอุดมศึกษา วิทยาศาสตร์", ministry) == TRUE, 
-                               "กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม",
-                               ministry))
-  }),
+  tar_target(budget,
+    budget_raw %>%
+      janitor::clean_names()
+  ),
   tar_target(unique_sentences, {
     budget %>%
       select(
@@ -146,7 +141,6 @@ tar_make()
 #> ✓ skip target translated_budget_plan
 #> ✓ skip target translated_category_lv1
 #> ✓ skip target unique_sentences
-#> ✓ skip target budget_cleansed
 #> ✓ skip target translated_ministry
 #> ✓ skip target translated_budgetary_unit
 #> ✓ skip target translated_project
@@ -182,7 +176,7 @@ cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
 translated_budget %>%
   dplyr::select(cols_to_select) %>%
   dplyr::slice_sample(n = 10) %>%
-  kableExtra::kbl() 
+  kableExtra::kbl()
 #> Note: Using an external vector in selections is ambiguous.
 #> ℹ Use `all_of(cols_to_select)` instead of `cols_to_select` to silence this message.
 #> ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.

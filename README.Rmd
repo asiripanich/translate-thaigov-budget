@@ -39,21 +39,23 @@ So far I have only translated `ministry`, `budgetary_unit`, `budget_plan`, `outp
 ```{r total-budget-by-ministry, echo = FALSE, fig.height=10, cache = TRUE}
 billion_format <- unit_format(unit = "B", scale = 1e-9, big.mark = ",")
 
-plot_data <- 
+plot_data <-
   tar_read(budget_en) %>%
-  mutate(ministry_en = ifelse(grepl("Ministry of Higher Education", ministry_en) == TRUE, 
-                               "Ministry of Higher Education, Science, Research and Innovation",
-                               ministry_en)) %>%
-  mutate(ministry_en = ifelse(grepl("^Provinces", ministry_en) == TRUE, 
-                               "Provinces and Provincial Groups",
-                               ministry_en)) %>%
+  mutate(ministry_en = ifelse(grepl("Ministry of Higher Education", ministry_en) == TRUE,
+    "Ministry of Higher Education, Science, Research and Innovation",
+    ministry_en
+  )) %>%
+  mutate(ministry_en = ifelse(grepl("^Provinces", ministry_en) == TRUE,
+    "Provinces and Provincial Groups",
+    ministry_en
+  )) %>%
   group_by(ministry_en) %>%
   summarise(amount = sum(amount, na.rm = TRUE))
 
 ggplot(data = plot_data, aes(
-    x = amount,
-    y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 60), amount)
-  )) +
+  x = amount,
+  y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 60), amount)
+)) +
   geom_col(fill = "#4b5320") +
   geom_text(aes(label = billion_format(amount)), hjust = -0.2, size = 3) +
   scale_x_continuous(labels = billion_format, limits = c(0, max(plot_data$amount, na.rm = TRUE) * 1.2)) +
@@ -82,15 +84,10 @@ read_sheet("https://docs.google.com/spreadsheets/d/1yyWXSTbq3CD_gNxks-krcSBzbszv
 
 ```{targets data-prep}
 list(
-  tar_target(budget, budget_raw %>% janitor::clean_names()),
-  tar_target(budget_cleansed, {
-    budget %>%
-      filter(fiscal_year > 0) %>%
-      filter(amount > 0) %>%
-      mutate(ministry = ifelse(grepl("กระทรวงการอุดมศึกษา วิทยาศาสตร์", ministry) == TRUE, 
-                               "กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม",
-                               ministry))
-  }),
+  tar_target(budget,
+    budget_raw %>%
+      janitor::clean_names()
+  ),
   tar_target(unique_sentences, {
     budget %>%
       select(
@@ -196,7 +193,7 @@ cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
 translated_budget %>%
   dplyr::select(cols_to_select) %>%
   dplyr::slice_sample(n = 10) %>%
-  kableExtra::kbl() 
+  kableExtra::kbl()
 ```
 
 ```{r}
