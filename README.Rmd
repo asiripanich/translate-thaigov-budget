@@ -8,6 +8,7 @@ always_allow_html: true
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", dpi = 320)
 Sys.setlocale("LC_ALL", "Thai")
 options(encoding = "UTF-8")
+set.seed(112)
 ```
 
 ```{r, include = FALSE}
@@ -223,36 +224,3 @@ tar_read(budget_en) %>%
 tar_read(budget) %>%
   skimr::skim()
 ```
-
-<!-- ```{r} -->
-<!-- tar_read(budget_cleansed) %>% -->
-<!--   filter(item_description == "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 17 แห่ง") %>% -->
-<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
-<!--   geom_line() + -->
-<!--   labs( -->
-<!--     title = "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 1", -->
-<!--     x = "Amount in Million Thai Bahts" -->
-<!--   ) + -->
-<!--   my_theme -->
-<!-- ``` -->
-
-<!-- ```{r fig.height=50, dpi=300} -->
-<!-- tar_read(budget_cleansed) %>% -->
-<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
-<!--   geom_col() + -->
-<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
-<!--   # scale_y_log10() + -->
-<!--   facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
-<!--   my_theme -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- tar_read(budget_cleansed) %>% -->
-<!--   ggplot(data = ., aes(x = fiscal_year, y = amount, fill = ministry)) + -->
-<!--   geom_col() + -->
-<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
-<!--   guides(fill = "none") + -->
-<!--   # scale_y_log10() + -->
-<!--   # facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
-<!--   my_theme -->
-<!-- ``` -->

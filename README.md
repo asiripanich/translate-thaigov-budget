@@ -263,212 +263,16 @@ project\_en
 <tbody>
 <tr>
 <td style="text-align:left;">
-แผนงานยุทธศาสตร์พัฒนาศักยภาพคนตลอดช่วงชีวิต
-</td>
-<td style="text-align:left;">
-Strategic plans to develop people’s potential throughout their lives
-</td>
-<td style="text-align:left;">
-กรมกิจการสตรีและสถาบันครอบครัว
-</td>
-<td style="text-align:left;">
-Department of Women’s Affairs and Family Institute
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์
-</td>
-<td style="text-align:left;">
-Ministry of Social Development and Human Security
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการพัฒนาทักษะอาชีพแก่สตรีและครอบครัว
-สู่ความยั่งยืนของสตรีและครอบครัว
-</td>
-<td style="text-align:left;">
-Professional Skills Development Program for Women and Families towards
-the sustainability of women and families
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-Strategic plans to promote decentralization to local government
-organizations
-</td>
-<td style="text-align:left;">
-เทศบาลเมืองในพื้นที่จังหวัดสงขลา เทศบาลเมืองปาดังเบซาร์
-</td>
-<td style="text-align:left;">
-Municipality in Songkhla Province Padang Besar Municipality
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-local government organization
-</td>
-<td style="text-align:left;">
-ผลผลิตการจัดบริการสาธารณะ
-</td>
-<td style="text-align:left;">
-Product of Public Service Arrangement
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์สร้างการเติบโตอย่างยั่งยืนอนุรักษ์ฟื้นฟูและป้องกันการทำลายทรัพยากรธรรมชาติ
-</td>
-<td style="text-align:left;">
-Strategic plans for sustainable growth, conservation, restoration and
-prevention of natural resource destruction
-</td>
-<td style="text-align:left;">
-องค์การอุตสาหกรรมป่าไม้
-</td>
-<td style="text-align:left;">
-Forest Industry Organization
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-รัฐวิสาหกิจ
-</td>
-<td style="text-align:left;">
-state enterprise
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการช้างเลี้ยงเพื่อการอนุรักษ์
-</td>
-<td style="text-align:left;">
-Elephant Conservation Project
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์พัฒนาบริการประชาชนและการพัฒนาประสิทธิภาพภาครัฐ
-</td>
-<td style="text-align:left;">
-Strategic Work Plan for Developing People’s Services and Developing
-Government Efficiency
-</td>
-<td style="text-align:left;">
-กรมบัญชีกลาง
-</td>
-<td style="text-align:left;">
-Comptroller General’s Department
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงการคลัง
-</td>
-<td style="text-align:left;">
-Ministry of Finance
-</td>
-<td style="text-align:left;">
-การบริหารและกำกับดูแลด้านรายจ่ายภาครัฐ
-</td>
-<td style="text-align:left;">
-Administration and supervision of government expenditures
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-Strategic plans to promote decentralization to local government
-organizations
-</td>
-<td style="text-align:left;">
-องค์การบริหารส่วนจังหวัดน่าน
-</td>
-<td style="text-align:left;">
-Nan Provincial Administrative Organization
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-local government organization
-</td>
-<td style="text-align:left;">
-ผลผลิตการจัดบริการสาธารณะ
-</td>
-<td style="text-align:left;">
-Product of Public Service Arrangement
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
 </td>
 <td style="text-align:left;">
 Fundamental Plan for Human Resources Development and Enhancement
 </td>
 <td style="text-align:left;">
-สำนักงานปลัดกระทรวงศึกษาธิการ
+มหาวิทยาลัยราชภัฏกาญจนบุรี
 </td>
 <td style="text-align:left;">
-Office of the Permanent Secretary, Ministry of Education
+Kanchanaburi Rajabhat University
 </td>
 <td style="text-align:left;">
 งบลงทุน
@@ -477,16 +281,16 @@ Office of the Permanent Secretary, Ministry of Education
 investment budget
 </td>
 <td style="text-align:left;">
-กระทรวงศึกษาธิการ
+กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (1)
 </td>
 <td style="text-align:left;">
-Ministry of Education
+Ministry of Higher Education, Science, Research and Innovation (1)
 </td>
 <td style="text-align:left;">
-นโยบายและแผนด้านการศึกษา
+ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์และเทคโนโลยี
 </td>
 <td style="text-align:left;">
-Education policies and plans
+science and technology graduates
 </td>
 <td style="text-align:left;">
 NA
@@ -536,54 +340,17 @@ National highway network construction project
 </tr>
 <tr>
 <td style="text-align:left;">
-แผนงานยุทธศาสตร์การเกษตรสร้างมูลค่า
+แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
 </td>
 <td style="text-align:left;">
-Value-Creating Agriculture Strategic Work Plan
+Strategic plans to promote decentralization to local government
+organizations
 </td>
 <td style="text-align:left;">
-กรมประมง
+องค์การบริหารส่วนจังหวัดเชียงใหม่
 </td>
 <td style="text-align:left;">
-Department of Fisheries
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงเกษตรและสหกรณ์
-</td>
-<td style="text-align:left;">
-Ministry of Agriculture and Cooperatives
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการผลิตและขยายสัตว์น้ำพันธุ์ดี 6ส
-</td>
-<td style="text-align:left;">
-Project for production and expansion of good breed 6S
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการสร้างความสามารถในการแข่งขัน
-</td>
-<td style="text-align:left;">
-Fundamental Plan for Competitiveness
-</td>
-<td style="text-align:left;">
-การท่องเที่ยวแห่งประเทศไทย
-</td>
-<td style="text-align:left;">
-Tourism Authority of Thailand
+Chiang Mai Provincial Administrative Organization
 </td>
 <td style="text-align:left;">
 งบเงินอุดหนุน
@@ -592,16 +359,16 @@ Tourism Authority of Thailand
 subsidy budget
 </td>
 <td style="text-align:left;">
-รัฐวิสาหกิจ
+องค์กรปกครองส่วนท้องถิ่น
 </td>
 <td style="text-align:left;">
-state enterprise
+local government organization
 </td>
 <td style="text-align:left;">
-การส่งเสริมการท่องเที่ยวตลาดในประเทศ
+ผลผลิตการจัดบริการสาธารณะ
 </td>
 <td style="text-align:left;">
-Promotion of domestic market tourism
+Product of Public Service Arrangement
 </td>
 <td style="text-align:left;">
 NA
@@ -618,10 +385,125 @@ NA
 Government Personnel Program
 </td>
 <td style="text-align:left;">
-กรมเจ้าท่า
+สำนักงานปลัดกระทรวงยุติธรรม
 </td>
 <td style="text-align:left;">
-Marine Department
+Office of the Permanent Secretary, Ministry of Justice
+</td>
+<td style="text-align:left;">
+งบบุคลากร
+</td>
+<td style="text-align:left;">
+personnel budget
+</td>
+<td style="text-align:left;">
+กระทรวงยุติธรรม
+</td>
+<td style="text-align:left;">
+Ministry of Justice
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์พัฒนาระบบการเตรียมพร้อมแห่งชาติและระบบบริหารจัดการภัยพิบัติ
+</td>
+<td style="text-align:left;">
+Strategic Work Plan for Developing National Preparedness and Disaster
+Management Systems
+</td>
+<td style="text-align:left;">
+กรมโยธาธิการและผังเมือง
+</td>
+<td style="text-align:left;">
+Department of Public Works and Town & Country Planning
+</td>
+<td style="text-align:left;">
+งบลงทุน
+</td>
+<td style="text-align:left;">
+investment budget
+</td>
+<td style="text-align:left;">
+กระทรวงมหาดไทย
+</td>
+<td style="text-align:left;">
+Ministry of Interior
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+โครงการก่อสร้างเขื่อนป้องกันตลิ่งริมแม่น้ำภายในประเทศ ลงร
+</td>
+<td style="text-align:left;">
+The construction of a dam to protect the banks of rivers in the country.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์เสริมสร้างให้คนมีสุขภาวะที่ดี
+</td>
+<td style="text-align:left;">
+Strategic plans to promote people’s well-being
+</td>
+<td style="text-align:left;">
+ราชวิทยาลัยจุฬาภรณ์
+</td>
+<td style="text-align:left;">
+Chulabhorn Royal College
+</td>
+<td style="text-align:left;">
+งบเงินอุดหนุน
+</td>
+<td style="text-align:left;">
+subsidy budget
+</td>
+<td style="text-align:left;">
+สำนักนายกรัฐมนตรี
+</td>
+<td style="text-align:left;">
+Prime Minister’s Office
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+โครงการการให้บริการรักษาพยาบาลและส่งเสริมสุขภาพเพื่อการศึกษา
+</td>
+<td style="text-align:left;">
+Healthcare and Health Promotion Services for Education Project
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์รักษาความสงบภายในประเทศ
+</td>
+<td style="text-align:left;">
+Strategic work plan to maintain peace within the country
+</td>
+<td style="text-align:left;">
+กรมการปกครอง
+</td>
+<td style="text-align:left;">
+Department of Administrative Affairs
 </td>
 <td style="text-align:left;">
 งบดำเนินงาน
@@ -630,16 +512,132 @@ Marine Department
 operating budget
 </td>
 <td style="text-align:left;">
-กระทรวงคมนาคม
+กระทรวงมหาดไทย
 </td>
 <td style="text-align:left;">
-Ministry of Transport
+Ministry of Interior
+</td>
+<td style="text-align:left;">
+การรักษาความมั่นคงภายใน
+</td>
+<td style="text-align:left;">
+internal security
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
 NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ป้องกันและแก้ไขปัญหาที่มีผลกระทบต่อความมั่นคง
+</td>
+<td style="text-align:left;">
+Strategic plans to prevent and solve problems affecting security
+</td>
+<td style="text-align:left;">
+กรมประมง
+</td>
+<td style="text-align:left;">
+Department of Fisheries
+</td>
+<td style="text-align:left;">
+งบลงทุน
+</td>
+<td style="text-align:left;">
+investment budget
+</td>
+<td style="text-align:left;">
+กระทรวงเกษตรและสหกรณ์
+</td>
+<td style="text-align:left;">
+Ministry of Agriculture and Cooperatives
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+โครงการป้องกันและแก้ไขปัญหาการทำประมงผิดกฎหมาย
+</td>
+<td style="text-align:left;">
+Project to prevent and solve the problem of illegal fishing
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+Strategic plans to promote decentralization to local government
+organizations
+</td>
+<td style="text-align:left;">
+เทศบาลเมืองในพื้นที่จังหวัดสงขลา เทศบาลเมืองทุ่งตำเสา
+</td>
+<td style="text-align:left;">
+Municipality in Songkhla Province Thung Tam Sao Municipality
+</td>
+<td style="text-align:left;">
+งบเงินอุดหนุน
+</td>
+<td style="text-align:left;">
+subsidy budget
+</td>
+<td style="text-align:left;">
+องค์กรปกครองส่วนท้องถิ่น
+</td>
+<td style="text-align:left;">
+local government organization
+</td>
+<td style="text-align:left;">
+ผลผลิตการจัดบริการสาธารณะ
+</td>
+<td style="text-align:left;">
+Product of Public Service Arrangement
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+แผนงานพื้นฐานด้านการปรับสมดุลและพัฒนาระบบการบริหารจัดการภาครัฐ
+</td>
+<td style="text-align:left;">
+Fundamental Plan for Balancing and Developing Government Management
+System
+</td>
+<td style="text-align:left;">
+สำนักงานปลัดกระทรวงพาณิชย์
+</td>
+<td style="text-align:left;">
+Office of the Permanent Secretary, Ministry of Commerce
+</td>
+<td style="text-align:left;">
+งบดำเนินงาน
+</td>
+<td style="text-align:left;">
+operating budget
+</td>
+<td style="text-align:left;">
+กระทรวงพาณิชย์
+</td>
+<td style="text-align:left;">
+Ministry of Commerce
+</td>
+<td style="text-align:left;">
+ยุทธศาสตร์ ข้อเสนอ และข้อมูลสารสนเทศด้านการพาณิชย์
+</td>
+<td style="text-align:left;">
+Strategies, proposals and commercial information
 </td>
 <td style="text-align:left;">
 NA
@@ -1392,33 +1390,3 @@ amount
 </tr>
 </tbody>
 </table>
-<!-- ```{r} -->
-<!-- tar_read(budget_cleansed) %>% -->
-<!--   filter(item_description == "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 17 แห่ง") %>% -->
-<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
-<!--   geom_line() + -->
-<!--   labs( -->
-<!--     title = "ค่าเช่าอาคารสถานเอกอัครราชทูตและสถานกงสุลใหญ่ 1", -->
-<!--     x = "Amount in Million Thai Bahts" -->
-<!--   ) + -->
-<!--   my_theme -->
-<!-- ``` -->
-<!-- ```{r fig.height=50, dpi=300} -->
-<!-- tar_read(budget_cleansed) %>% -->
-<!--   ggplot(data = ., aes(x = fiscal_year, y = amount)) + -->
-<!--   geom_col() + -->
-<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
-<!--   # scale_y_log10() + -->
-<!--   facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
-<!--   my_theme -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- tar_read(budget_cleansed) %>% -->
-<!--   ggplot(data = ., aes(x = fiscal_year, y = amount, fill = ministry)) + -->
-<!--   geom_col() + -->
-<!--   scale_y_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) + -->
-<!--   guides(fill = "none") + -->
-<!--   # scale_y_log10() + -->
-<!--   # facet_wrap(~ ministry, ncol = 1, scales = "free_y") + -->
-<!--   my_theme -->
-<!-- ``` -->
