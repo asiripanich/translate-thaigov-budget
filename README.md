@@ -1,22 +1,7 @@
 ThaiGov’s 2022 Budget
 ================
 
-<blockquote class="twitter-tweet">
-<p lang="th" dir="ltr">
-\[ Excel
-<a href="https://twitter.com/hashtag/%E0%B8%87%E0%B8%9A65?src=hash&amp;ref_src=twsrc%5Etfw">\#งบ65</a>
-สำเร็จแล้ว! ใช้ไปเลยชั่วลูกชั่วหลาน \]<br><br>ดาวน์โหลด:
-<a href="https://t.co/PuhflF8DEF">https://t.co/PuhflF8DEF</a><br><br>เราจะทำตามสัญญา
-ขอเวลาอีกไม่นาน …<br><br>หลัง งปม. วาระ 1 ผ่านสภา
-พวกเราเคยให้สัญญากับทุกท่านไว้ว่า จะรวมพลังสาย dev เพื่อแปลงงบ pdf สู่
-machine-readable แบบทำครั้งเดียว ใช้ได้ชั่วลูกชั่วหลาน
-<a href="https://t.co/b0pWMF3jDc">pic.twitter.com/b0pWMF3jDc</a>
-</p>
-— ณัฐพงษ์ เรืองปัญญาวุฒิ (เท้ง) (@teng\_mfp)
-<a href="https://twitter.com/teng_mfp/status/1417872910383865859?ref_src=twsrc%5Etfw">July
-21, 2021</a>
-</blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+![<https://img.shields.io/badge/open%20data-thailand-blue>](https://img.shields.io/badge/open%20data-thailand-blue)
 
 This repository contains R code that uses [Google Translation
 API](https://cloud.google.com/translate) to translate [2022 Thai
@@ -33,6 +18,10 @@ free Google monthly quota. If you are interested to contribute, please
 submit a pull request with other columns translated to English. Feel
 free to use the R code below. :)
 
+![](README_files/figure-gfm/total-budget-by-ministry-1.png)<!-- -->
+
+# Targets
+
 ``` r
 options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("dplyr", "ggplot2", "googlesheets4", "tidyr", "skimr", "magrittr", "googleLanguageR", "data.table"))
@@ -44,8 +33,6 @@ merge_translation <- function(x, translation, column) {
 }
 #> Established _targets.R and _targets_r/globals/unnamed-chunk-3.R.
 ```
-
-# Targets
 
 ``` r
 tar_target(budget_raw, {
@@ -631,34 +618,6 @@ NA
 </tr>
 </tbody>
 </table>
-
-``` r
-my_theme <- 
-  theme_bw(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-  # labs(x = "Amount in Million Thai Bahts")
-```
-
-``` r
-tar_read(budget_en) %>%
-  mutate(ministry_en = ifelse(grepl("Ministry of Higher Education", ministry_en) == TRUE, 
-                               "Ministry of Higher Education, Science, Research and Innovation",
-                               ministry_en)) %>%
-  group_by(ministry_en) %>%
-  summarise(amount = sum(amount, na.rm = TRUE)) %>%
-  ggplot(data = ., aes(
-    x = amount,
-    y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 40), amount)
-  )) +
-  geom_col() +
-  scale_x_continuous(labels = unit_format(unit = "M", scale = 1e-6, big.mark = ",")) +
-  scale_y_discrete(expand = c(0, 0)) +
-  theme_bw(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(x = "Amount in Million Thai Bahts", y = "Ministry")
-```
-
-![](README_files/figure-gfm/total-budget-by-ministry-1.png)<!-- -->
 
 ``` r
 tar_read(budget) %>%
