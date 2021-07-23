@@ -84,12 +84,6 @@ list(
 #> Established _targets.R and _targets_r/targets/data-prep.R.
 ```
 
-<!-- ```{targets chunks_of_unique_sentences, tar_simple = TRUE} -->
-<!-- unique_sentences %>% -->
-<!--   sample(size = 20, replace = FALSE) %>% -->
-<!--   split(., ceiling(seq_along(.) / 5)) -->
-<!-- ``` -->
-
 ``` r
 list(
   tar_target(translated_ministry, {
@@ -125,17 +119,6 @@ list(
 )
 #> Established _targets.R and _targets_r/targets/translation.R.
 ```
-
-<!-- ```{targets translate-by-chunk}  -->
-<!-- list( -->
-<!--   tar_target( -->
-<!--     translated_chucks,  -->
-<!--     gl_translate(chunks_of_unique_sentences[[1]], target = "en"),  -->
-<!--     pattern = map(chunks_of_unique_sentences),  -->
-<!--     iteration = "list" -->
-<!--   ) -->
-<!-- ) -->
-<!-- ``` -->
 
 ``` r
 tar_target(translated_budget, {
