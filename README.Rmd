@@ -12,7 +12,6 @@ set.seed(112)
 library(dplyr)
 library(skimr)
 library(ggplot2)
-library(gt)
 library(stringr)
 library(forcats)
 library(scales)
@@ -43,7 +42,7 @@ cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
 translated_budget %>%
     dplyr::select(cols_to_select) %>%
     dplyr::slice_sample(n = 2) %>%
-    gt::gt()
+    knitr::kable()
 ```
 
 ```{r total-budget-by-ministry, echo = FALSE, fig.height=10}
