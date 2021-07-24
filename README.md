@@ -13,10 +13,409 @@ downloaded from here:
 > <https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing>
 
 So far I have only translated `ministry`, `budgetary_unit`,
-`budget_plan`, `output`, `project`, and `category_lv1` columns using my
-free Google monthly quota. If you are interested to contribute, please
-submit a pull request with other columns translated to English. Feel
-free to use the R code below. :)
+`budget_plan`, `output`, `project`, `category_lv1`, `category_lv2`, and
+`category_lv3` columns using my free Google monthly quota. If you are
+interested to contribute, please submit a pull request with other
+columns translated to English. Feel free to use the R code below. :)
+
+<div id="ekavifbwaw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ekavifbwaw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ekavifbwaw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ekavifbwaw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ekavifbwaw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ekavifbwaw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ekavifbwaw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ekavifbwaw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ekavifbwaw .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ekavifbwaw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ekavifbwaw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ekavifbwaw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ekavifbwaw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ekavifbwaw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#ekavifbwaw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ekavifbwaw .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ekavifbwaw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ekavifbwaw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ekavifbwaw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ekavifbwaw .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ekavifbwaw .gt_left {
+  text-align: left;
+}
+
+#ekavifbwaw .gt_center {
+  text-align: center;
+}
+
+#ekavifbwaw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ekavifbwaw .gt_font_normal {
+  font-weight: normal;
+}
+
+#ekavifbwaw .gt_font_bold {
+  font-weight: bold;
+}
+
+#ekavifbwaw .gt_font_italic {
+  font-style: italic;
+}
+
+#ekavifbwaw .gt_super {
+  font-size: 65%;
+}
+
+#ekavifbwaw .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">budget_plan</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">budget_plan_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">budgetary_unit</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">budgetary_unit_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">category_lv1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">category_lv1_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">category_lv2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">category_lv2_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">category_lv3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">category_lv3_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">ministry</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">ministry_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">output</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">output_en</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">project</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">project_en</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">แผนงานยุทธศาสตร์จัดการผลกระทบจากการเปลี่ยนแปลงสภาวะภูมิอากาศ</td>
+<td class="gt_row gt_left">Climate Change Impact Strategic Work Plan</td>
+<td class="gt_row gt_left">สำนักงานปลัดกระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม</td>
+<td class="gt_row gt_left">Office of the Permanent Secretary, Ministry of Digital Economy and Society</td>
+<td class="gt_row gt_left">งบลงทุน</td>
+<td class="gt_row gt_left">investment budget</td>
+<td class="gt_row gt_left">ค่าครุภัณฑ์ ที่ดินและสิ่งก่อสร้าง</td>
+<td class="gt_row gt_left">Cost of equipment, land and construction</td>
+<td class="gt_row gt_left">ค่าครุภัณฑ์</td>
+<td class="gt_row gt_left">cost of equipment</td>
+<td class="gt_row gt_left">กระทรวงดิจิทัลเพื่อเศรษฐกิจและสังคม</td>
+<td class="gt_row gt_left">Ministry of Digital Economy and Society</td>
+<td class="gt_row gt_left">NA</td>
+<td class="gt_row gt_left">NA</td>
+<td class="gt_row gt_left">โครงการจัดหาเครื่องวัดลมเฉือน (Lidar) และเครื่องมือ ตรวจลมชั้นบน</td>
+<td class="gt_row gt_left">Project for procurement of wind shear gauges (lidar) and instruments for wind monitoring upstairs</td></tr>
+    <tr><td class="gt_row gt_left">แผนงานบูรณาการสร้างรายได้จากการท่องเที่ยว</td>
+<td class="gt_row gt_left">Integrated program to generate income from tourism</td>
+<td class="gt_row gt_left">กรมโยธาธิการและผังเมือง</td>
+<td class="gt_row gt_left">Department of Public Works and Town &amp; Country Planning</td>
+<td class="gt_row gt_left">งบลงทุน</td>
+<td class="gt_row gt_left">investment budget</td>
+<td class="gt_row gt_left">ค่าครุภัณฑ์ ที่ดินและสิ่งก่อสร้าง</td>
+<td class="gt_row gt_left">Cost of equipment, land and construction</td>
+<td class="gt_row gt_left">ค่าที่ดินและสิ่งก่อสร้าง</td>
+<td class="gt_row gt_left">cost of land and construction</td>
+<td class="gt_row gt_left">กระทรวงมหาดไทย</td>
+<td class="gt_row gt_left">Ministry of Interior</td>
+<td class="gt_row gt_left">NA</td>
+<td class="gt_row gt_left">NA</td>
+<td class="gt_row gt_left">โครงการพัฒนาปัจจัยพื้นฐานด้านการท่องเที่ยว</td>
+<td class="gt_row gt_left">Tourism Fundamentals Development Project</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
 
 ![](README_files/figure-gfm/total-budget-by-ministry-1.png)<!-- -->
 
@@ -31,7 +430,7 @@ merge_translation <- function(x, translation, column) {
     select(-detectedSourceLanguage) %>%
     rename_with( ~ gsub("translatedText", paste0(column, "_en"), .x, fixed = TRUE))
 }
-#> Established _targets.R and _targets_r/globals/unnamed-chunk-3.R.
+#> Established _targets.R and _targets_r/globals/unnamed-chunk-4.R.
 ```
 
 ``` r
@@ -97,6 +496,16 @@ list(
     budget$category_lv1 %>%
       unique() %>%
       gl_translate(target = "en")
+  }),
+  tar_target(translated_category_lv2, {
+    budget$category_lv2 %>%
+      unique() %>%
+      gl_translate(target = "en")
+  }),
+  tar_target(translated_category_lv3, {
+    budget$category_lv2 %>%
+      unique() %>%
+      gl_translate(target = "en")
   })
 )
 #> Established _targets.R and _targets_r/targets/translation.R.
@@ -111,6 +520,8 @@ tar_target(translated_budget, {
     merge_translation(translated_output, "output") %>%
     merge_translation(translated_project, "project") %>%
     merge_translation(translated_category_lv1, "category_lv1") %>%
+    merge_translation(translated_category_lv2, "category_lv2") %>%
+    merge_translation(translated_category_lv3, "category_lv3") %>%
     select(names(budget), everything())
 })
 #> Defined target translated_budget automatically from chunk code.
@@ -140,6 +551,8 @@ tar_make()
 #> ✓ skip target translated_output
 #> ✓ skip target translated_budget_plan
 #> ✓ skip target translated_category_lv1
+#> ✓ skip target translated_category_lv2
+#> ✓ skip target translated_category_lv3
 #> ✓ skip target unique_sentences
 #> ✓ skip target translated_ministry
 #> ✓ skip target translated_budgetary_unit
@@ -158,1171 +571,61 @@ tar_visnetwork()
 # Example Output
 
 ``` r
-library(dplyr)
-library(skimr)
-library(ggplot2)
-library(kableExtra)
-library(stringr)
-library(forcats)
-library(scales)
 library(targets)
+library(skimr)
 ```
-
-``` r
-tar_load(translated_budget)
-cols_to_select <- names(translated_budget)[grepl("_en", names(translated_budget))]
-cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
-
-translated_budget %>%
-  dplyr::select(cols_to_select) %>%
-  dplyr::slice_sample(n = 10) %>%
-  kableExtra::kbl()
-#> Note: Using an external vector in selections is ambiguous.
-#> ℹ Use `all_of(cols_to_select)` instead of `cols_to_select` to silence this message.
-#> ℹ See <https://tidyselect.r-lib.org/reference/faq-external-vector.html>.
-#> This message is displayed once per session.
-```
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-budget\_plan
-</th>
-<th style="text-align:left;">
-budget\_plan\_en
-</th>
-<th style="text-align:left;">
-budgetary\_unit
-</th>
-<th style="text-align:left;">
-budgetary\_unit\_en
-</th>
-<th style="text-align:left;">
-category\_lv1
-</th>
-<th style="text-align:left;">
-category\_lv1\_en
-</th>
-<th style="text-align:left;">
-ministry
-</th>
-<th style="text-align:left;">
-ministry\_en
-</th>
-<th style="text-align:left;">
-output
-</th>
-<th style="text-align:left;">
-output\_en
-</th>
-<th style="text-align:left;">
-project
-</th>
-<th style="text-align:left;">
-project\_en
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการพัฒนาและเสริมสร้างศักยภาพทรัพยากรมนุษย์
-</td>
-<td style="text-align:left;">
-Fundamental Plan for Human Resources Development and Enhancement
-</td>
-<td style="text-align:left;">
-มหาวิทยาลัยราชภัฏกาญจนบุรี
-</td>
-<td style="text-align:left;">
-Kanchanaburi Rajabhat University
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-กระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (1)
-</td>
-<td style="text-align:left;">
-Ministry of Higher Education, Science, Research and Innovation (1)
-</td>
-<td style="text-align:left;">
-ผู้สำเร็จการศึกษาด้านวิทยาศาสตร์และเทคโนโลยี
-</td>
-<td style="text-align:left;">
-science and technology graduates
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานบูรณาการพัฒนาด้านคมนาคมและระบบโลจิสติกส์
-</td>
-<td style="text-align:left;">
-Integrated work plan for the development of transport and logistics
-systems
-</td>
-<td style="text-align:left;">
-กรมทางหลวง
-</td>
-<td style="text-align:left;">
-Department of Highways
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-กระทรวงคมนาคม
-</td>
-<td style="text-align:left;">
-Ministry of Transport
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการก่อสร้างโครงข่ายทางหลวงแผ่นดิน
-</td>
-<td style="text-align:left;">
-National highway network construction project
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-Strategic plans to promote decentralization to local government
-organizations
-</td>
-<td style="text-align:left;">
-องค์การบริหารส่วนจังหวัดเชียงใหม่
-</td>
-<td style="text-align:left;">
-Chiang Mai Provincial Administrative Organization
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-local government organization
-</td>
-<td style="text-align:left;">
-ผลผลิตการจัดบริการสาธารณะ
-</td>
-<td style="text-align:left;">
-Product of Public Service Arrangement
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานบุคลากรภาครัฐ
-</td>
-<td style="text-align:left;">
-Government Personnel Program
-</td>
-<td style="text-align:left;">
-สำนักงานปลัดกระทรวงยุติธรรม
-</td>
-<td style="text-align:left;">
-Office of the Permanent Secretary, Ministry of Justice
-</td>
-<td style="text-align:left;">
-งบบุคลากร
-</td>
-<td style="text-align:left;">
-personnel budget
-</td>
-<td style="text-align:left;">
-กระทรวงยุติธรรม
-</td>
-<td style="text-align:left;">
-Ministry of Justice
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์พัฒนาระบบการเตรียมพร้อมแห่งชาติและระบบบริหารจัดการภัยพิบัติ
-</td>
-<td style="text-align:left;">
-Strategic Work Plan for Developing National Preparedness and Disaster
-Management Systems
-</td>
-<td style="text-align:left;">
-กรมโยธาธิการและผังเมือง
-</td>
-<td style="text-align:left;">
-Department of Public Works and Town & Country Planning
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-กระทรวงมหาดไทย
-</td>
-<td style="text-align:left;">
-Ministry of Interior
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการก่อสร้างเขื่อนป้องกันตลิ่งริมแม่น้ำภายในประเทศ ลงร
-</td>
-<td style="text-align:left;">
-The construction of a dam to protect the banks of rivers in the country.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์เสริมสร้างให้คนมีสุขภาวะที่ดี
-</td>
-<td style="text-align:left;">
-Strategic plans to promote people’s well-being
-</td>
-<td style="text-align:left;">
-ราชวิทยาลัยจุฬาภรณ์
-</td>
-<td style="text-align:left;">
-Chulabhorn Royal College
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-สำนักนายกรัฐมนตรี
-</td>
-<td style="text-align:left;">
-Prime Minister’s Office
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการการให้บริการรักษาพยาบาลและส่งเสริมสุขภาพเพื่อการศึกษา
-</td>
-<td style="text-align:left;">
-Healthcare and Health Promotion Services for Education Project
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์รักษาความสงบภายในประเทศ
-</td>
-<td style="text-align:left;">
-Strategic work plan to maintain peace within the country
-</td>
-<td style="text-align:left;">
-กรมการปกครอง
-</td>
-<td style="text-align:left;">
-Department of Administrative Affairs
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงมหาดไทย
-</td>
-<td style="text-align:left;">
-Ministry of Interior
-</td>
-<td style="text-align:left;">
-การรักษาความมั่นคงภายใน
-</td>
-<td style="text-align:left;">
-internal security
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ป้องกันและแก้ไขปัญหาที่มีผลกระทบต่อความมั่นคง
-</td>
-<td style="text-align:left;">
-Strategic plans to prevent and solve problems affecting security
-</td>
-<td style="text-align:left;">
-กรมประมง
-</td>
-<td style="text-align:left;">
-Department of Fisheries
-</td>
-<td style="text-align:left;">
-งบลงทุน
-</td>
-<td style="text-align:left;">
-investment budget
-</td>
-<td style="text-align:left;">
-กระทรวงเกษตรและสหกรณ์
-</td>
-<td style="text-align:left;">
-Ministry of Agriculture and Cooperatives
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-โครงการป้องกันและแก้ไขปัญหาการทำประมงผิดกฎหมาย
-</td>
-<td style="text-align:left;">
-Project to prevent and solve the problem of illegal fishing
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานยุทธศาสตร์ส่งเสริมการกระจายอำนาจให้แก่องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-Strategic plans to promote decentralization to local government
-organizations
-</td>
-<td style="text-align:left;">
-เทศบาลเมืองในพื้นที่จังหวัดสงขลา เทศบาลเมืองทุ่งตำเสา
-</td>
-<td style="text-align:left;">
-Municipality in Songkhla Province Thung Tam Sao Municipality
-</td>
-<td style="text-align:left;">
-งบเงินอุดหนุน
-</td>
-<td style="text-align:left;">
-subsidy budget
-</td>
-<td style="text-align:left;">
-องค์กรปกครองส่วนท้องถิ่น
-</td>
-<td style="text-align:left;">
-local government organization
-</td>
-<td style="text-align:left;">
-ผลผลิตการจัดบริการสาธารณะ
-</td>
-<td style="text-align:left;">
-Product of Public Service Arrangement
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-แผนงานพื้นฐานด้านการปรับสมดุลและพัฒนาระบบการบริหารจัดการภาครัฐ
-</td>
-<td style="text-align:left;">
-Fundamental Plan for Balancing and Developing Government Management
-System
-</td>
-<td style="text-align:left;">
-สำนักงานปลัดกระทรวงพาณิชย์
-</td>
-<td style="text-align:left;">
-Office of the Permanent Secretary, Ministry of Commerce
-</td>
-<td style="text-align:left;">
-งบดำเนินงาน
-</td>
-<td style="text-align:left;">
-operating budget
-</td>
-<td style="text-align:left;">
-กระทรวงพาณิชย์
-</td>
-<td style="text-align:left;">
-Ministry of Commerce
-</td>
-<td style="text-align:left;">
-ยุทธศาสตร์ ข้อเสนอ และข้อมูลสารสนเทศด้านการพาณิชย์
-</td>
-<td style="text-align:left;">
-Strategies, proposals and commercial information
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-</tbody>
-</table>
 
 ``` r
 tar_read(budget) %>%
   skimr::skim()
 ```
 
-<table style="width: auto;" class="table table-condensed">
-<caption>
+|                                                  |            |
+|:-------------------------------------------------|:-----------|
+| Name                                             | Piped data |
+| Number of rows                                   | 51767      |
+| Number of columns                                | 20         |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_   |            |
+| Column type frequency:                           |            |
+| character                                        | 13         |
+| logical                                          | 4          |
+| numeric                                          | 3          |
+| \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |            |
+| Group variables                                  | None       |
+
 Data summary
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Name
-</td>
-<td style="text-align:left;">
-Piped data
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of rows
-</td>
-<td style="text-align:left;">
-51767
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of columns
-</td>
-<td style="text-align:left;">
-20
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Column type frequency:
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-character
-</td>
-<td style="text-align:left;">
-13
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-logical
-</td>
-<td style="text-align:left;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Group variables
-</td>
-<td style="text-align:left;">
-None
-</td>
-</tr>
-</tbody>
-</table>
 
 **Variable type: character**
 
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-skim\_variable
-</th>
-<th style="text-align:right;">
-n\_missing
-</th>
-<th style="text-align:right;">
-complete\_rate
-</th>
-<th style="text-align:right;">
-min
-</th>
-<th style="text-align:right;">
-max
-</th>
-<th style="text-align:right;">
-empty
-</th>
-<th style="text-align:right;">
-n\_unique
-</th>
-<th style="text-align:right;">
-whitespace
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-item\_id
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-17
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-51767
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ref\_doc
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-24
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ministry
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-99
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-36
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-budgetary\_unit
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-79
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-718
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-budget\_plan
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:right;">
-754
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-99
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-output
-</td>
-<td style="text-align:right;">
-26898
-</td>
-<td style="text-align:right;">
-0.48
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-196
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-371
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-project
-</td>
-<td style="text-align:right;">
-27073
-</td>
-<td style="text-align:right;">
-0.48
-</td>
-<td style="text-align:right;">
-19
-</td>
-<td style="text-align:right;">
-230
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1351
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-category\_lv1
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-72
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-31
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-category\_lv2
-</td>
-<td style="text-align:right;">
-122
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-354
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1777
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-category\_lv3
-</td>
-<td style="text-align:right;">
-13654
-</td>
-<td style="text-align:right;">
-0.74
-</td>
-<td style="text-align:right;">
-7
-</td>
-<td style="text-align:right;">
-348
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1395
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-category\_lv4
-</td>
-<td style="text-align:right;">
-29904
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-118
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-217
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-item\_description
-</td>
-<td style="text-align:right;">
-5429
-</td>
-<td style="text-align:right;">
-0.90
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-466
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-19806
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-debug\_log
-</td>
-<td style="text-align:right;">
-50733
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-167
-</td>
-<td style="text-align:right;">
-847
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-767
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-</tbody>
-</table>
+| skim\_variable    | n\_missing | complete\_rate | min | max | empty | n\_unique | whitespace |
+|:------------------|-----------:|---------------:|----:|----:|------:|----------:|-----------:|
+| item\_id          |          0 |           1.00 |  10 |  17 |     0 |     51767 |          0 |
+| ref\_doc          |          0 |           1.00 |   8 |  12 |     0 |        24 |          0 |
+| ministry          |          0 |           1.00 |   6 |  99 |     0 |        36 |          0 |
+| budgetary\_unit   |          0 |           1.00 |   6 |  79 |     0 |       718 |          0 |
+| budget\_plan      |          0 |           1.00 |  19 | 754 |     0 |        99 |          0 |
+| output            |      26898 |           0.48 |  11 | 196 |     0 |       371 |          0 |
+| project           |      27073 |           0.48 |  19 | 230 |     0 |      1351 |          0 |
+| category\_lv1     |          3 |           1.00 |   2 |  72 |     0 |        31 |          0 |
+| category\_lv2     |        122 |           1.00 |   7 | 354 |     0 |      1777 |          0 |
+| category\_lv3     |      13654 |           0.74 |   7 | 348 |     0 |      1395 |          0 |
+| category\_lv4     |      29904 |           0.42 |   8 | 118 |     0 |       217 |          0 |
+| item\_description |       5429 |           0.90 |   8 | 466 |     0 |     19806 |          0 |
+| debug\_log        |      50733 |           0.02 | 167 | 847 |     0 |       767 |          0 |
 
 **Variable type: logical**
 
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-skim\_variable
-</th>
-<th style="text-align:right;">
-n\_missing
-</th>
-<th style="text-align:right;">
-complete\_rate
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:left;">
-count
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-cross\_func
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.15
-</td>
-<td style="text-align:left;">
-FAL: 43971, TRU: 7796
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-category\_lv5
-</td>
-<td style="text-align:right;">
-51767
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NaN
-</td>
-<td style="text-align:left;">
-:
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-category\_lv6
-</td>
-<td style="text-align:right;">
-51767
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-NaN
-</td>
-<td style="text-align:left;">
-:
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-obliged
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0.32
-</td>
-<td style="text-align:left;">
-FAL: 35279, TRU: 16488
-</td>
-</tr>
-</tbody>
-</table>
+| skim\_variable | n\_missing | complete\_rate | mean | count                  |
+|:---------------|-----------:|---------------:|-----:|:-----------------------|
+| cross\_func    |          0 |              1 | 0.15 | FAL: 43971, TRU: 7796  |
+| category\_lv5  |      51767 |              0 |  NaN | :                      |
+| category\_lv6  |      51767 |              0 |  NaN | :                      |
+| obliged        |          0 |              1 | 0.32 | FAL: 35279, TRU: 16488 |
 
 **Variable type: numeric**
 
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-skim\_variable
-</th>
-<th style="text-align:right;">
-n\_missing
-</th>
-<th style="text-align:right;">
-complete\_rate
-</th>
-<th style="text-align:right;">
-mean
-</th>
-<th style="text-align:right;">
-sd
-</th>
-<th style="text-align:right;">
-p0
-</th>
-<th style="text-align:right;">
-p25
-</th>
-<th style="text-align:right;">
-p50
-</th>
-<th style="text-align:right;">
-p75
-</th>
-<th style="text-align:right;">
-p100
-</th>
-<th style="text-align:left;">
-hist
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-ref\_page\_no
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-304.33
-</td>
-<td style="text-align:right;">
-1.951500e+02
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-147
-</td>
-<td style="text-align:right;">
-279
-</td>
-<td style="text-align:right;">
-429
-</td>
-<td style="text-align:right;">
-9.190e+02
-</td>
-<td style="text-align:left;">
-▇▇▅▂▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fiscal\_year
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-2021.73
-</td>
-<td style="text-align:right;">
-1.445000e+01
-</td>
-<td style="text-align:right;">
--287
-</td>
-<td style="text-align:right;">
-2022
-</td>
-<td style="text-align:right;">
-2022
-</td>
-<td style="text-align:right;">
-2022
-</td>
-<td style="text-align:right;">
-2.066e+03
-</td>
-<td style="text-align:left;">
-▁▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-amount
-</td>
-<td style="text-align:right;">
-43
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-97021729.28
-</td>
-<td style="text-align:right;">
-2.218307e+09
-</td>
-<td style="text-align:right;">
--2551
-</td>
-<td style="text-align:right;">
-1188000
-</td>
-<td style="text-align:right;">
-5736000
-</td>
-<td style="text-align:right;">
-21816175
-</td>
-<td style="text-align:right;">
-3.106e+11
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-</tbody>
-</table>
+| skim\_variable | n\_missing | complete\_rate |        mean |           sd |    p0 |     p25 |     p50 |      p75 |      p100 | hist  |
+|:---------------|-----------:|---------------:|------------:|-------------:|------:|--------:|--------:|---------:|----------:|:------|
+| ref\_page\_no  |          0 |              1 |      304.33 | 1.951500e+02 |     5 |     147 |     279 |      429 | 9.190e+02 | ▇▇▅▂▁ |
+| fiscal\_year   |          0 |              1 |     2021.73 | 1.445000e+01 |  -287 |    2022 |    2022 |     2022 | 2.066e+03 | ▁▁▁▁▇ |
+| amount         |         43 |              1 | 97021729.28 | 2.218307e+09 | -2551 | 1188000 | 5736000 | 21816175 | 3.106e+11 | ▇▁▁▁▁ |
