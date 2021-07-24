@@ -191,7 +191,7 @@ tar_make()
 tar_visnetwork()
 ```
 
-# Example Output
+# Data summary
 
 ``` r
 library(targets)

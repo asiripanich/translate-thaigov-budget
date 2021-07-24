@@ -174,7 +174,7 @@ tar_visnetwork()
 
 <img src="README_files/figure-gfm/target-visnetwork-1.png" width="100%" />
 
-# Example Output
+# Data summary
 
 ``` r
 library(targets)
