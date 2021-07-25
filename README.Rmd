@@ -1,5 +1,5 @@
 ---
-title: "ThaiGov's 2022 Budget"
+title: "ThaiGov's 2022 Budget+"
 output: github_document
 always_allow_html: true
 ---
@@ -8,7 +8,7 @@ always_allow_html: true
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>", dpi = 320)
 Sys.setlocale("LC_ALL", "Thai")
 options(encoding = "UTF-8")
-set.seed(112)
+# set.seed(112)
 library(dplyr)
 library(skimr)
 library(ggplot2)
@@ -16,6 +16,7 @@ library(stringr)
 library(forcats)
 library(scales)
 library(targets)
+library(rvest)
 ```
 
 ```{r, include = FALSE}
@@ -28,19 +29,29 @@ tar_unscript()
 
 ![<https://img.shields.io/badge/open%20data-thailand-blue>](https://img.shields.io/badge/open%20data-thailand-blue)
 
-This repository contains R code that uses [Google Translation API](https://cloud.google.com/translate) to translate [2022 Thai Government Budget data](https://github.com/kaogeek/thailand-budget-pdf2csv) from Thai to English. A *partially* translated version of the data can be viewed and downloaded from here:
+This repository contains a richer version of [2022 Thai Government Budget data](https://github.com/kaogeek/thailand-budget-pdf2csv).
+
+Improvements:
+
+-   Translated most of the character columns from Thai to English using [Google Translation API](https://cloud.google.com/translate).
+-   Added address fields extracted from `item_description`.
+
+The data can be viewed and downloaded from here:
 
 > <https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing>
 
 So far I have only translated `ministry`, `budgetary_unit`, `budget_plan`, `output`, `project`, `category_lv1`, `category_lv2`, and `category_lv3` columns using my free Google monthly quota. If you are interested to contribute, please submit a pull request with other columns translated to English. Feel free to use the R code below. :)
 
 ```{r echo = FALSE, warning = FALSE, message = FALSE}
-tar_load(translated_budget)
-cols_to_select <- names(translated_budget)[grepl("_en", names(translated_budget))]
-cols_to_select <- c(gsub("_en", "", cols_to_select), cols_to_select) %>% sort()
-
-translated_budget %>%
-    dplyr::select(cols_to_select) %>%
+set.seed(112)
+tar_load(budget_plus)
+cols_to_select <- names(budget_plus)[grepl("_en", names(budget_plus))] %>%
+  c(gsub("_en", "", .), .) %>%
+  .[!grepl("province|district|subdistrict|region", .)] %>%
+  sort()
+  
+budget_plus %>%
+    dplyr::select(cols_to_select, starts_with(c("province", "district", "subdistrict", "region"))) %>% 
     dplyr::slice_sample(n = 2) %>%
     knitr::kable()
 ```
@@ -49,7 +60,7 @@ translated_budget %>%
 billion_format <- unit_format(unit = "B", scale = 1e-9, big.mark = ",")
 
 plot_data <-
-  tar_read(budget_en) %>%
+  tar_read(budget_plus) %>%
   mutate(ministry_en = ifelse(grepl("Ministry of Higher Education", ministry_en) == TRUE,
     "Ministry of Higher Education, Science, Research and Innovation",
     ministry_en
@@ -58,10 +69,13 @@ plot_data <-
     "Provinces and Provincial Groups",
     ministry_en
   )) %>%
-  group_by(ministry_en) %>%
+  group_by(ministry_en, region_en) %>%
   summarise(amount = sum(amount, na.rm = TRUE))
 
-ggplot(data = plot_data, aes(
+plot_data %>%
+  group_by(ministry_en) %>%
+  summarise(amount = sum(amount, na.rm = TRUE)) %>%
+  ggplot(data = ., aes(
   x = amount,
   y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 60), amount)
 )) +
@@ -73,6 +87,22 @@ ggplot(data = plot_data, aes(
   labs(x = "Amount in Billion Thai Bahts (พันล้าน)", y = "Ministry", title = "Total Amount of Budget by Ministry")
 ```
 
+```{r total-budget-by-ministry-and-region, echo = FALSE, fig.height=10}
+plot_data %>%
+  dplyr::filter(!is.na(region_en)) %>%
+  ggplot(data = ., aes(
+    x = amount,
+    y = forcats::fct_reorder(stringr::str_wrap(ministry_en, 60), amount),
+    fill = region_en
+  )) +
+  geom_col() +
+  scale_x_continuous(labels = billion_format) +
+  scale_fill_brewer(palette = "Dark2") +
+  theme_bw(base_size = 9) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(x = "Amount in Billion Thai Bahts (พันล้าน)", y = "Ministry", title = "Total Amount of Budget by Ministry and Region", fill = "Region", caption = "*Not properly sorted by total amount")
+```
+
 # Targets
 
 ```{targets, tar_globals = TRUE}
@@ -80,7 +110,7 @@ options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("dplyr", "ggplot2", "googlesheets4", "tidyr", "skimr", "magrittr", "googleLanguageR", "data.table"))
 merge_translation <- function(x, translation, column) {
   translation %>%
-    merge(x, ., by.x = column, by.y = "text") %>%
+    merge(x, ., by.x = column, by.y = "text", all.x = TRUE) %>%
     select(-detectedSourceLanguage) %>%
     rename_with( ~ gsub("translatedText", paste0(column, "_en"), .x, fixed = TRUE))
 }
@@ -158,7 +188,7 @@ list(
 )
 ```
 
-```{targets translated_budget, tar_simple = TRUE}
+```{targets budget_plus, tar_simple = TRUE}
 budget %>%
   merge_translation(translated_ministry, "ministry") %>%
   merge_translation(translated_budgetary_unit, "budgetary_unit") %>%
@@ -167,15 +197,43 @@ budget %>%
   merge_translation(translated_project, "project") %>%
   merge_translation(translated_category_lv1, "category_lv1") %>%
   merge_translation(translated_category_lv2, "category_lv2") %>%
-  merge_translation(translated_category_lv3, "category_lv3") %>%
+  merge_translation(translated_category_lv3, "category_lv3") %>% 
+  dplyr::mutate(province = stringr::str_extract(item_description, "จังหวัด[^\\s]+|กรุงเทพมหานคร")) %>%
+  dplyr::mutate(district = stringr::str_extract(item_description, "อำเภอ[^\\s]+|เขต[^\\s]+")) %>%
+  dplyr::mutate(subdistrict = stringr::str_extract(item_description, "ตำบล[^\\s]+|แขวง[^\\s]+")) %>%
+  dplyr::mutate(province = gsub("จังหวัด", "", province)) %>%
+  merge(dplyr::select(provinces, starts_with("district")), by = "district", all.x = TRUE) %>%
+  merge(dplyr::select(distinct(provinces, province, .keep_all = T), starts_with("province"), region_en), by = "province", all.x = TRUE) %>%
   select(names(budget), everything())
+```
+
+```{targets extract-addresses}
+list(tar_target(provinces, {
+  exclude_bkk <-
+    rvest::read_html("https://en.wikipedia.org/wiki/List_of_districts_of_Thailand") %>%
+    rvest::html_element(css = "table") %>%
+    rvest::html_table() %>%
+    janitor::clean_names() %>%
+    setNames(c("district_en", "district", "province_en", "province", "region_en")) %>%
+    dplyr::mutate(postcode = NA_integer_) %>%
+    dplyr::mutate(district = paste0("อำเภอ", district))
+  bkk <-
+    rvest::read_html("https://en.wikipedia.org/wiki/List_of_districts_of_Bangkok") %>%
+    rvest::html_element(css = "table") %>%
+    rvest::html_table() %>%
+    janitor::clean_names() %>%
+    dplyr::mutate(province_en = "Bangkok", province = "กรุงเทพ", region_en = "Centre") %>%
+    dplyr::select(district_en = district_khet, district = thai, province_en, province, region_en, postcode = post_code) %>%
+    dplyr::mutate(district = paste0("เขต", district))
+  rbind(bkk,exclude_bkk)
+}))
 ```
 
 ```{targets upload_to_gsheet, tar_simple = TRUE}
 # googlesheets4::gs4_create("65_thailand_budget_extracted_b4_cleansing_with_ENlang",
 #            sheets = list(DATA = head(translated_budget, 10)))
 googlesheets4::sheet_write(
-  data = translated_budget,
+  data = budget_plus,
   ss = "https://docs.google.com/spreadsheets/d/1rKR1kLuSDssT0_xLpGE_oRm2tPD5ZRhzErWq-8UzH6A/edit?usp=sharing",
   sheet = "DATA"
 )
@@ -199,6 +257,6 @@ library(skimr)
 ```
 
 ```{r}
-tar_read(budget) %>%
+tar_read(budget_plus) %>%
   skimr::skim()
 ```
