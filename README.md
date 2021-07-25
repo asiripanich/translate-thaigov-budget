@@ -6,6 +6,9 @@ ThaiGov’s 2022 Budget+
 This repository contains a richer version of [2022 Thai Government
 Budget data](https://github.com/kaogeek/thailand-budget-pdf2csv).
 
+> **Disclaimer: I do not guarantee that the derived fields are
+> accurate.**
+
 Improvements:
 
 -   Translated most of the character columns from Thai to English using
@@ -20,7 +23,14 @@ So far I have only translated `ministry`, `budgetary_unit`,
 `budget_plan`, `output`, `project`, `category_lv1`, `category_lv2`, and
 `category_lv3` columns using my free Google monthly quota. If you are
 interested to contribute, please submit a pull request with other
-columns translated to English. Feel free to use the R code below. :)
+columns translated to English.
+
+For the address fields, I have only extracted the low-hanging fruit ones
+(e.g. words that start with “จังหวัด” “ตำบล” and “อำเภอ”). In the data,
+they also used abbreviations to indicate addresses as well, which I will
+include in the next release.
+
+Feel free to use the R code below. :)
 
 | budget\_plan                                  | budget\_plan\_en                               | budgetary\_unit  | budgetary\_unit\_en                 | category\_lv1 | category\_lv1\_en | category\_lv2            | category\_lv2\_en               | category\_lv3   | category\_lv3\_en | ministry                                             | ministry\_en                                                       | output | output\_en | project                                         | project\_en                                                | province | province\_en  | district      | district\_en   | subdistrict | region\_en |
 |:----------------------------------------------|:-----------------------------------------------|:-----------------|:------------------------------------|:--------------|:------------------|:-------------------------|:--------------------------------|:----------------|:------------------|:-----------------------------------------------------|:-------------------------------------------------------------------|:-------|:-----------|:------------------------------------------------|:-----------------------------------------------------------|:---------|:--------------|:--------------|:---------------|:------------|:-----------|
@@ -139,6 +149,9 @@ tar_target(budget_plus, {
     dplyr::mutate(province = stringr::str_extract(item_description, "จังหวัด[^\\s]+|กรุงเทพมหานคร")) %>%
     dplyr::mutate(district = stringr::str_extract(item_description, "อำเภอ[^\\s]+|เขต[^\\s]+")) %>%
     dplyr::mutate(subdistrict = stringr::str_extract(item_description, "ตำบล[^\\s]+|แขวง[^\\s]+")) %>%
+    # dplyr::mutate(province = stringr::str_extract_all(item_description, "จังหวัด[^\\s]+|กรุงเทพ[^\\s]+|จ\\.[^\\s]+")) %>%
+    # dplyr::mutate(district = stringr::str_extract_all(item_description, "อำเภอ[^\\s]+|เขต[^\\s]+|อ\\.[^\\s]+")) %>%
+    # dplyr::mutate(subdistrict = stringr::str_extract_all(item_description, "ตำบล[^\\s]+|แขวง[^\\s]+|ต\\.[^\\s]+")) %>%
     dplyr::mutate(province = gsub("จังหวัด", "", province)) %>%
     merge(dplyr::select(provinces, starts_with("district")), by = "district", all.x = TRUE) %>%
     merge(dplyr::select(distinct(provinces, province, .keep_all = T), starts_with("province"), region_en), by = "province", all.x = TRUE) %>%
